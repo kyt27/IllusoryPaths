@@ -15,9 +15,12 @@ public class PlaceTrackedImages : MonoBehaviour {
 
     private readonly Dictionary<string, GameObject> _instantiatedPrefabs = new Dictionary<string, GameObject>();
 
+    private bool lostTrack;
+
     void Awake() {
         // Cache a reference to the Tracked Image Manager component
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
+        lostTrack = false;
     }
 
     void OnEnable() {
@@ -27,7 +30,7 @@ public class PlaceTrackedImages : MonoBehaviour {
 
     void OnDisable() {
         // Remove event handler
-        _trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+        // _trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
     }
 
     // Event Handler
@@ -49,17 +52,15 @@ public class PlaceTrackedImages : MonoBehaviour {
 
         // For all prefabs that have been created so far, set them active or not depending on whether their corresponding image is currently being tracked
         foreach (var trackedImage in eventArgs.updated) {
-            _instantiatedPrefabs[trackedImage.referenceImage.name].SetActive(trackedImage.trackingState == TrackingState.Tracking);
+            if(lostTrack) {
+                lostTrack = false;
+            }
+            _instantiatedPrefabs[trackedImage.referenceImage.name].SetActive(true);
         }
 
         // If the AR subsystem has given up looking for a tracked image
         foreach (var trackedImage in eventArgs.removed) {
-            // Destroy its prefab
-            Destroy(_instantiatedPrefabs[trackedImage.referenceImage.name]);
-            // Also remove the instance from our array
-            _instantiatedPrefabs.Remove(trackedImage.referenceImage.name);
-            // Or, simply set the prefab instance to inactive
-            // _instantiatedPrefabs[trackedImage.referenceImage].SetActive(false);
+            lostTrack = true;
         }
     }
 }
