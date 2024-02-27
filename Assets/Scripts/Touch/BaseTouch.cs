@@ -7,12 +7,17 @@ public abstract class BaseTouch : MonoBehaviour {
     private Ray ray;
     private RaycastHit hit;
 
+    internal bool actionPersist = false;
+
     void Start() {
         myCamera = Camera.main;
     }
 
     void Update() {
         IsClickObject();
+        if(actionPersist) {
+            TogglePersist();
+        }
     }
 
     void HandleRayCast(Vector3 myInput) {
@@ -20,12 +25,16 @@ public abstract class BaseTouch : MonoBehaviour {
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
                 Debug.Log(this.gameObject.name + myInput);
-                Action();
+                Action(myInput);
             }
         }
     }
 
-    internal abstract void Action();
+    internal abstract void Action(Vector3 myInput);
+
+    internal virtual void TogglePersist() {
+        return;
+    }
 
     void HandleClickMouse() {
         if (Input.GetMouseButtonDown(0)) {
