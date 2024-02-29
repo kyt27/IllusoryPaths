@@ -47,6 +47,10 @@ public class PlaceAndChangeTrackedImage : MonoBehaviour {
             _instantiatedPrefabs[sceneNumber].SetActive(true);
         }
 
+        foreach (var trackedImage in eventArgs.removed) {
+            
+        }
+
     }
 
     public static void ChangePrefab() {

@@ -56,19 +56,21 @@ public class RotateDrag : BaseTouch {
         float curMinAngle = 500f;
         int snapTo = -1;
 
+        float parentAngle = transform.parent.eulerAngles.y;
+
         for(int i=0; i<snapAngles.Length; i++) {
-            float temp = System.Math.Min(System.Math.Abs(angle - snapAngles[i]), System.Math.Abs(angle - snapAngles[i] - 360));
+            float temp = System.Math.Min(System.Math.Abs(angle - snapAngles[i] - parentAngle), System.Math.Abs(angle - snapAngles[i] - parentAngle - 360));
             if(temp < curMinAngle) {
                 snapTo = i;
                 curMinAngle = temp;
             }
         }
 
-        float RotateTo = (snapAngles[snapTo] + 180) % 360 - 180;
+        float rotateTo = snapAngles[snapTo] + parentAngle;
 
-        transform.rotation = Quaternion.Euler(0, snapAngles[snapTo], 0);
+        transform.rotation = Quaternion.Euler(0, rotateTo, 0);
         foreach(GameObject obj in rotateTogether) {
-            obj.transform.rotation = Quaternion.Euler(0, snapAngles[snapTo], 0);
+            obj.transform.rotation = Quaternion.Euler(0, rotateTo, 0);
         }
     }
 
