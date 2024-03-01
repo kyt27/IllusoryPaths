@@ -407,8 +407,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f27f81accacba6842ad2d27bf9f485b3, type: 2}
   - {fileID: 2100000, guid: dbf651b174d35fe47ae63c0aba56b3e2, type: 2}
   - {fileID: 2100000, guid: a5caa340bf4e0a148985eeedee977ba9, type: 2}
-  acceptViewAngle: 15
-  acceptViewDist: 5
+  acceptViewAngle: 20
+  acceptViewDist: 3.5
 --- !u!64 &40252074
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2708,7 +2708,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27920
+  m_Name: pb_Mesh29050
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -2973,7 +2973,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27986
+  m_Name: pb_Mesh29116
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -3138,7 +3138,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27956
+  m_Name: pb_Mesh29086
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4329,7 +4329,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27970
+  m_Name: pb_Mesh29100
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4940,7 +4940,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27850
+  m_Name: pb_Mesh28980
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5105,7 +5105,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27834
+  m_Name: pb_Mesh28964
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5270,7 +5270,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27898
+  m_Name: pb_Mesh30026
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5552,15 +5552,15 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f27f81accacba6842ad2d27bf9f485b3, type: 2}
   - {fileID: 2100000, guid: dbf651b174d35fe47ae63c0aba56b3e2, type: 2}
   - {fileID: 2100000, guid: a5caa340bf4e0a148985eeedee977ba9, type: 2}
-  acceptViewAngle: 15
-  acceptViewDist: 5
+  acceptViewAngle: 20
+  acceptViewDist: 3.5
 --- !u!43 &1288343195
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27882
+  m_Name: pb_Mesh29012
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5725,7 +5725,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27820
+  m_Name: pb_Mesh28950
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
