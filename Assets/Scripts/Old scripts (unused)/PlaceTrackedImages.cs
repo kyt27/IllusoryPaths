@@ -6,6 +6,8 @@ using UnityEngine.XR.ARSubsystems;
 
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class PlaceTrackedImages : MonoBehaviour {
+    /*
+
     // Reference to AR tracked image manager component
     private ARTrackedImageManager _trackedImageManager;
 
@@ -13,11 +15,20 @@ public class PlaceTrackedImages : MonoBehaviour {
     // as their corresponding 2D images in the reference image library
     public GameObject[] ArPrefabs;
 
+    [SerializeField]
+    private int sceneNumber = 0;
+
     private readonly Dictionary<string, GameObject> _instantiatedPrefabs = new Dictionary<string, GameObject>();
 
     void Awake() {
         // Cache a reference to the Tracked Image Manager component
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            sceneNumber = (sceneNumber + 1) % ArPrefabs.Length;
+        }
     }
 
     void OnEnable() {
@@ -51,5 +62,9 @@ public class PlaceTrackedImages : MonoBehaviour {
         foreach (var trackedImage in eventArgs.updated) {
             _instantiatedPrefabs[trackedImage.referenceImage.name].SetActive(true);
         }
+
+        // var newPrefab = Instantiate(ArPrefabs[0], eventArgs.added[0].transform);
     }
+
+    */
 }
