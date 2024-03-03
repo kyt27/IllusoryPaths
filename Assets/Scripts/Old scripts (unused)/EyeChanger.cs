@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyeChanger : MonoBehaviour
-{
+public class EyeChanger : MonoBehaviour {
 
+    /*
     [SerializeField] 
     private List<Material> eyeMaterials;
 
@@ -39,10 +39,12 @@ public class EyeChanger : MonoBehaviour
 
         if(viewAngle > hintViewAngle || viewDist > hintViewDist) {
             GetComponent<MeshRenderer>().material = eyeMaterials[0];
-        } else if(viewAngle > acceptViewDist || viewDist > acceptViewDist) {
+        } else if(viewAngle > acceptViewAngle || viewDist > acceptViewDist) {
             GetComponent<MeshRenderer>().material = eyeMaterials[1];
         } else {
             GetComponent<MeshRenderer>().material = eyeMaterials[2];
         }
     }
+
+    */
 }

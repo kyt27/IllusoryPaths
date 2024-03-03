@@ -6,6 +6,8 @@ using UnityEngine.XR.ARSubsystems;
 
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class PlaceTrackedImages : MonoBehaviour {
+    /*
+
     // Reference to AR tracked image manager component
     private ARTrackedImageManager _trackedImageManager;
 
@@ -63,4 +65,6 @@ public class PlaceTrackedImages : MonoBehaviour {
 
         // var newPrefab = Instantiate(ArPrefabs[0], eventArgs.added[0].transform);
     }
+
+    */
 }

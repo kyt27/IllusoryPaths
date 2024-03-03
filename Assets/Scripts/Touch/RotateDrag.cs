@@ -15,6 +15,8 @@ public class RotateDrag : BaseTouch {
     [SerializeField]
     private float[] snapAngles = {0, 90, 180, 270};
 
+    private float selfYAngle;
+
     internal override void Action(Vector3 myInput) {
         actionPersist = true;
         isRotating = true;
@@ -67,19 +69,18 @@ public class RotateDrag : BaseTouch {
         }
 
         float rotateTo = snapAngles[snapTo] + parentAngle;
-
-        transform.rotation = Quaternion.Euler(0, rotateTo, 0);
         foreach(GameObject obj in rotateTogether) {
-            obj.transform.rotation = Quaternion.Euler(0, rotateTo, 0);
+            obj.transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
         }
+        transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
     }
 
     void Rotate(float currentPosition) {
         float movement = currentPosition - startPosition;
-            transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-            foreach(GameObject obj in rotateTogether) {
-                obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-            }
-            startPosition = currentPosition;
+        transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        foreach(GameObject obj in rotateTogether) {
+            obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        }
+        startPosition = currentPosition;
     }
 }
