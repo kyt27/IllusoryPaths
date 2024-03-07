@@ -7,8 +7,6 @@ public abstract class BaseTouch : MonoBehaviour {
     private Ray ray;
     private RaycastHit hit;
 
-    [SerializeField] internal bool interactable = false;
-
     internal bool actionPersist = false;
 
     void Start() {
