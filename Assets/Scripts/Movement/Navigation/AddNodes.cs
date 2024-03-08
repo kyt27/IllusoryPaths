@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AddNodes : MonoBehaviour {
@@ -9,6 +10,8 @@ public class AddNodes : MonoBehaviour {
     [SerializeField] private bool negY;
     [SerializeField] private bool posZ;
     [SerializeField] private bool negZ;
+
+    public List<Vector3> excluded;
 
     private GameObject node;
 
@@ -20,15 +23,27 @@ public class AddNodes : MonoBehaviour {
         node = new GameObject("Node");
         node.AddComponent<Node>();
 
-        Debug.Log(GetComponent<Collider>().bounds.center);
-        Debug.Log(GetComponent<Collider>().bounds.size);
-        Debug.Log(GetComponent<Collider>().bounds.min);
-        Debug.Log(GetComponent<Collider>().bounds.max);
+        AddExcludedNodes();
+
+        // Debug.Log(GetComponent<Collider>().bounds.center);
+        // Debug.Log(GetComponent<Collider>().bounds.size);
+        // Debug.Log(GetComponent<Collider>().bounds.min);
+        // Debug.Log(GetComponent<Collider>().bounds.max);
 
         Vector3 minCoords = GetComponent<Collider>().bounds.min;
         Vector3 maxCoords = GetComponent<Collider>().bounds.max;
 
         SpawnNodes(minCoords, maxCoords);
+
+        Destroy(node);
+    }
+
+    void AddExcludedNodes() {
+        List<Node> allNodes = GetComponentsInChildren<Node>().ToList();
+        foreach(Node n in allNodes) {
+            excluded.Add(n.transform.position);
+            // Debug.Log("excluded: " + n.transform.position);
+        }
     }
 
     void SpawnNodes(Vector3 minCoords, Vector3 maxCoords) {
@@ -131,6 +146,9 @@ public class AddNodes : MonoBehaviour {
     }
 
     void AttachNode(Vector3 pos, Quaternion rotation) {
+        if(excluded.Any(item => item == pos)) return;
+
+        // Debug.Log("AttachNode: " + pos);
         Instantiate(node, pos, rotation, this.transform);
     }
 }

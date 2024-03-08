@@ -90,10 +90,18 @@ public class Node : MonoBehaviour {
 
     // given a specific neighbour, sets active state
     public void EnableEdge(Node neighbourNode, bool state) {
+        bool exists = false;
+
         foreach (Edge e in edges) {
             if (e.neighbour.Equals(neighbourNode)) {
+                exists = true;
                 e.isActive = state;
             }
+        }
+
+        if(!exists) {
+            Edge newEdge = new Edge { neighbour = neighbourNode, isActive = state };
+            edges.Add(newEdge);
         }
     }
 

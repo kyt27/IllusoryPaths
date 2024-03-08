@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,10 +49,11 @@ public class PlayerControl : MonoBehaviour
 
     void IsClickObject()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
+    #if UNITY_EDITOR || UNITY_STANDALONE
         HandleClickMouse();
-#elif UNITY_ANDROID || UNITY_IOS
+    # elif UNITY_ANDROID || UNITY_IOS
         HandleTouchMobile();
-#endif
+    #endif
     }
 }
+*/

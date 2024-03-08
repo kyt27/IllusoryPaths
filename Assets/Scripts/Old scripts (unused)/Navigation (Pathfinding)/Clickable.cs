@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
  * Copyright (c) 2020 Razeware LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,41 +28,37 @@
  * THE SOFTWARE.
  */
 
-using System.Collections;
-using System.Collections.Generic;
+/*
 using UnityEngine;
-
+using System; 
+using UnityEngine.EventSystems;
 
 namespace RW.MonumentValley
 {
-    public class PlayerAnimation : MonoBehaviour
-    {
+    // allows player to click on a block to set path goal
+    [RequireComponent(typeof(Collider))]
+    public class Clickable : BaseTouch
+    { 
+        // Nodes under this Transform
+        private Node[] childNodes;
+        public Node[] ChildNodes => childNodes;
 
-        // multiplier for walk AnimationClip
-        [Range(0.5f, 3f)]
-        [SerializeField] private float walkAnimSpeed = 1f;
+        // invoked when collider is clicked
+        public Action<Clickable,Vector3> clickAction;
 
-        // player Animator component
-        [SerializeField] private Animator animator;
-
-
-        void Start()
+        private void Awake()
         {
-            if (animator != null)
-            {
-                // set AnimationClip speed
-                animator.SetFloat("walkSpeedMultiplier", walkAnimSpeed);
-            }
+            childNodes = GetComponentsInChildren<Node>();
         }
 
-        //  toggle between idle and walking animation
-        public void ToggleAnimation(bool state)
+        internal override void Action(Vector3 myInput)
         {
-            if (animator != null)
+            if (clickAction != null)
             {
-                animator?.SetBool("isMoving", state);
+                // invoke the clickAction with world space raycast hit position
+                clickAction.Invoke(this, myInput);
             }
-
         }
     }
 }
+*/

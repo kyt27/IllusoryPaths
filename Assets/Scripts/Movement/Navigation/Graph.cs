@@ -14,7 +14,7 @@ public class Graph : MonoBehaviour
 
     private void Awake() {
         allNodes = GetComponentsInChildren<Node>().ToList();
-        Debug.Log(allNodes.Count);
+        // Debug.Log(allNodes.Count);
         InitNodes();
     }
 
@@ -40,21 +40,50 @@ public class Graph : MonoBehaviour
         foreach (Node n in nodes) {
             Vector3 diff = n.transform.position - pos;
 
-            Vector3 nodeScreenPosition = Camera.main.WorldToScreenPoint(n.transform.position);
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(pos);
-            diff = nodeScreenPosition - screenPosition;
+            // Vector3 nodeScreenPosition = Camera.main.WorldToScreenPoint(n.transform.position);
+            // Vector3 screenPosition = Camera.main.WorldToScreenPoint(pos);
+            // diff = nodeScreenPosition - screenPosition;
 
             if (diff.sqrMagnitude < closestDistanceSqr) {
                 closestNode = n;
                 closestDistanceSqr = diff.sqrMagnitude;
             }
         }
+
+        Debug.Log(closestDistanceSqr);
         return closestNode;
     }
 
     // find the closest Node in the entire Graph
     public Node FindClosestNode(Vector3 pos) {
         return FindClosestNode(allNodes.ToArray(), pos);
+    }
+
+    public Node[] FindClosestNodes(Vector3 pos, float distance = 0.75f) {
+        List<Node> nodes = new List<Node>();
+        List<float> dist = new List<float>();
+
+        foreach (Node n in allNodes) {
+            Vector3 diff = n.transform.position - pos;
+
+            // Vector3 nodeScreenPosition = Camera.main.WorldToScreenPoint(n.transform.position);
+            // Vector3 screenPosition = Camera.main.WorldToScreenPoint(pos);
+            // diff = nodeScreenPosition - screenPosition;
+
+            if (diff.sqrMagnitude < distance) {
+                nodes.Add(n);
+                dist.Add(diff.sqrMagnitude);
+            }
+        }
+
+        Node[] nodesArray = nodes.ToArray();
+        float[] distArray = dist.ToArray();
+        
+        if(nodesArray.Length > 0) {
+            System.Array.Sort(distArray, nodesArray);
+        }
+
+        return nodesArray;
     }
 
     // clear breadcrumb trail

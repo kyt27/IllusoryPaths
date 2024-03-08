@@ -17,10 +17,16 @@ public class RotateDrag : BaseTouch {
 
     private float selfYAngle;
 
+    private RotationLinker rotationLinker;
+
     internal override void Action(Vector3 myInput) {
         actionPersist = true;
         isRotating = true;
         startPosition = myInput.x;
+    }
+
+    internal override void Initialise() {
+        rotationLinker = GetComponent<RotationLinker>();
     }
 
     internal override void TogglePersist() {
@@ -73,6 +79,10 @@ public class RotateDrag : BaseTouch {
             obj.transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
         }
         transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
+
+        if(rotationLinker == null) return;
+
+        rotationLinker.UpdateRotationLinks();
     }
 
     void Rotate(float currentPosition) {

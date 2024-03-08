@@ -28,35 +28,17 @@
  * THE SOFTWARE.
  */
 
-using UnityEngine;
-using System; 
-using UnityEngine.EventSystems;
-
+/*
+// connection/link to neighboring node
 namespace RW.MonumentValley
 {
-    // allows player to click on a block to set path goal
-    [RequireComponent(typeof(Collider))]
-    public class Clickable : BaseTouch
-    { 
-        // Nodes under this Transform
-        private Node[] childNodes;
-        public Node[] ChildNodes => childNodes;
-
-        // invoked when collider is clicked
-        public Action<Clickable,Vector3> clickAction;
-
-        private void Awake()
-        {
-            childNodes = GetComponentsInChildren<Node>();
-        }
-
-        internal override void Action(Vector3 myInput)
-        {
-            if (clickAction != null)
-            {
-                // invoke the clickAction with world space raycast hit position
-                clickAction.Invoke(this, myInput);
-            }
-        }
+    [System.Serializable]
+    public class Edge
+    {
+        // Tutorial Start3
+        public Node neighbor;
+        public bool isActive;
     }
+
 }
+*/
