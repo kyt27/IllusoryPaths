@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectable : BaseEyeInteractable
+public class EyeProjectable : MonoBehaviour
 {
-    #region Fields
+#region Fields
         public Transform m_obj;
         public GameObject split;
         public Transform m_split;
@@ -24,37 +24,25 @@ public class Projectable : BaseEyeInteractable
         private bool merging = false;
     #endregion
 
-    // IEnumerator switchPosition() {
-    //     Mesh current = split.GetComponentInChildren<MeshFilter>().mesh;
-    //     Vector3[] target = initialVertices;
-    //     Vector3[] currentVertices = current.vertices;
-    //     for (int i = 0; i < target.Length; i++) {
-    //         // currentVertices[i].x = target[i].x;
-    //         // currentVertices[i].y = target[i].y;
-    //         // currentVertices[i].z = target[i].z;
-    //         float move = mergeSpeed * Time.deltaTime;
-    //         currentVertices[i] = Vector3.MoveTowards(currentVertices[i], target[i], move);
-    //     }
-    //     current.vertices = currentVertices;
-    //     current.RecalculateNormals();
-    //     current.RecalculateBounds();
-    //     //merged = true;
-    //     yield return null;
-    // }
-
-    void idleRotate() {
-        float angle = 4 * Time.deltaTime;
-        split.GetComponent<Transform>().Rotate(0, angle, 0);
+    void switchPosition() {
+        Mesh current = split.GetComponentInChildren<MeshFilter>().mesh;
+        Vector3[] target = initialVertices;
+        Vector3[] currentVertices = current.vertices;
+        for (int i = 0; i < target.Length; i++) {
+            // currentVertices[i].x = target[i].x;
+            // currentVertices[i].y = target[i].y;
+            // currentVertices[i].z = target[i].z;
+            float move = mergeSpeed * Time.deltaTime;
+            currentVertices[i] = Vector3.MoveTowards(currentVertices[i], target[i], move);
+        }
+        current.vertices = currentVertices;
+        current.RecalculateNormals();
+        current.RecalculateBounds();
+        //merged = true;
     }
 
     public override void Action(Vector3 input) {
-
-    }
-
-    void displayPlayButton() {
-        //GameObject.Find("PlayButton").GetComponent<Renderer>().enabled = true;
-        // GameObject pButton = Instantiate(playButton, new Vector3(m_obj.position.x, m_obj.position.y - 1, m_obj.position.z), Quaternion.identity);
-        // pButton.GetComponent
+        switchPosition();
     }
 
     /* Bug in AR with Triangles */
@@ -184,14 +172,14 @@ public class Projectable : BaseEyeInteractable
         Vector3 b = m_camera.position - m_obj.position;
         float cosine_axis = Mathf.Abs(Vector3.Dot(a, b)/(a.magnitude * b.magnitude));
         float cosine_view = Mathf.Abs(Vector3.Dot(m_camera.forward, b)/(m_camera.forward.magnitude * b.magnitude));
-        if (!merged) {
-            StartCoroutine(mergeTrianglesDynamic(cosine_axis, cosine_view));
-        } else {
-            idleRotate();
-        }
-        if (!merged && 1 - cosine_axis < eps1 /* Fix this && 1 - cosine_view < eps2*/) {
-            mergeTrianglesPermanent();
-        }
+        // if (!merged) {
+        //     StartCoroutine(mergeTrianglesDynamic(cosine_axis, cosine_view));
+        // } else {
+        //     idleRotate();
+        // }
+        // if (!merged && 1 - cosine_axis < eps1 /* Fix this && 1 - cosine_view < eps2*/) {
+        //     mergeTrianglesPermanent();
+        // }
         // if (merging || (1 - cosine_axis < eps1 && 1 - cosine_view < eps2)) {
         //     merging = true;
         //     //switchPosition(initialVertices, split.GetComponentInChildren<MeshFilter>().mesh);
