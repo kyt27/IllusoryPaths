@@ -172,6 +172,7 @@ public class NavController : MonoBehaviour {
     }
 
     public void SnapToCurrentNode() {
+        StopAllCoroutines();
         transform.position = currentNode.transform.position;
     }
 

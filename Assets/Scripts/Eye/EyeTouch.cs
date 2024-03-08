@@ -66,7 +66,8 @@ public class EyeTouch : MonoBehaviour {
         ray = myCamera.ScreenPointToRay(myInput);
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
-                Debug.Log(this.gameObject.name + myInput);
+                // Debug.Log(this.gameObject.name + myInput);
+                transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
                 controlled.GetComponent<BaseEyeInteractable>().Action(myInput);
             }
         }

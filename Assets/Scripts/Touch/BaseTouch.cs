@@ -26,7 +26,6 @@ public abstract class BaseTouch : MonoBehaviour {
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
                 // Debug.Log(this.gameObject.name + myInput);
-                StopAllCoroutines();
                 transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
                 Action(myInput);
             }
