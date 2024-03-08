@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyeProjectable : MonoBehaviour
+public class EyeProjectable : BaseEyeInteractable
 {
 #region Fields
         public Transform m_obj;
         public GameObject split;
-        public Transform m_split;
-        public float eps1;
-        public float eps2;
         public float offsetRange;
         public float mergeSpeed;
-        public GameObject playButton;
 
         private Vector3 m_prevTouch = -Vector2.one;//screen coordinates
         private Camera camera;
@@ -20,7 +16,6 @@ public class EyeProjectable : MonoBehaviour
         private Vector3 splitAxis = new Vector3(0, 0, 1);
         private Vector3[] initialVertices;
         private Vector3[] offsetVertices;
-        private bool merged = false;
         private bool merging = false;
     #endregion
 
@@ -38,6 +33,7 @@ public class EyeProjectable : MonoBehaviour
         current.vertices = currentVertices;
         current.RecalculateNormals();
         current.RecalculateBounds();
+        merging = true;
         //merged = true;
     }
 
@@ -58,8 +54,7 @@ public class EyeProjectable : MonoBehaviour
         current.vertices = currentVertices;
         current.RecalculateNormals();
     //     current.RecalculateBounds();
-        merged = true;
-        displayPlayButton();
+        // merged = true;
     //     yield return null;
     }
 
@@ -94,8 +89,6 @@ public class EyeProjectable : MonoBehaviour
 
         initialVertices = new Vector3[triangles.Length * 3];
         offsetVertices = new Vector3[triangles.Length * 3];
-
-        m_split.position = m_obj.TransformPoint(m_obj.position + splitAxis);
 
         for(int i = 0; i < triangles.Length; i += 3)
         {
@@ -167,11 +160,15 @@ public class EyeProjectable : MonoBehaviour
             {
                 m_prevTouch = -Vector2.one;
             }
+        
+        if (merging) {
+            switchPosition();
+        }
 
-        Vector3 a = m_obj.TransformDirection(splitAxis);
-        Vector3 b = m_camera.position - m_obj.position;
-        float cosine_axis = Mathf.Abs(Vector3.Dot(a, b)/(a.magnitude * b.magnitude));
-        float cosine_view = Mathf.Abs(Vector3.Dot(m_camera.forward, b)/(m_camera.forward.magnitude * b.magnitude));
+        // Vector3 a = m_obj.TransformDirection(splitAxis);
+        // Vector3 b = m_camera.position - m_obj.position;
+        // float cosine_axis = Mathf.Abs(Vector3.Dot(a, b)/(a.magnitude * b.magnitude));
+        // float cosine_view = Mathf.Abs(Vector3.Dot(m_camera.forward, b)/(m_camera.forward.magnitude * b.magnitude));
         // if (!merged) {
         //     StartCoroutine(mergeTrianglesDynamic(cosine_axis, cosine_view));
         // } else {
