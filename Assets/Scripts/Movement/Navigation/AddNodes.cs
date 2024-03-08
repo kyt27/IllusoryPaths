@@ -56,7 +56,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x + 0.5f, y, z), Quaternion.LookRotation(new Vector3(1, 0, 0)));
+                            if(empty) AttachNode(new Vector3(x + 0.5f, y, z), Quaternion.LookRotation(new Vector3(1, 0, 0)), "posX");
                             break;
                         }
                     }
@@ -68,11 +68,13 @@ public class AddNodes : MonoBehaviour {
                 for(float z=Mathf.Ceil(minCoords.z); z<=Mathf.Floor(maxCoords.z); z++) {
                     bool empty = false;
                     for(float x=Mathf.Floor(minCoords.x); x<=Mathf.Floor(maxCoords.x); x++) {
+                        Debug.Log(new Vector3(x, y, z));
                         Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.49f);
+                        Debug.Log(hitColliders.Length);
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x - 0.5f, y, z), Quaternion.LookRotation(new Vector3(-1, 0, 0)));
+                            if(empty) AttachNode(new Vector3(x - 0.5f, y, z), Quaternion.LookRotation(new Vector3(-1, 0, 0)), "negX");
                             break;
                         }
                     }
@@ -88,7 +90,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y + 0.5f, z), Quaternion.LookRotation(new Vector3(0, 1, 0)));
+                            if(empty) AttachNode(new Vector3(x, y + 0.5f, z), Quaternion.LookRotation(new Vector3(0, 1, 0)), "posY");
                             break;
                         }
                     }
@@ -104,7 +106,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y - 0.5f, z), Quaternion.LookRotation(new Vector3(0, -1, 0)));
+                            if(empty) AttachNode(new Vector3(x, y - 0.5f, z), Quaternion.LookRotation(new Vector3(0, -1, 0)), "negY");
                             break;
                         }
                     }
@@ -120,7 +122,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y, z + 0.5f), Quaternion.LookRotation(new Vector3(0, 0, 1)));
+                            if(empty) AttachNode(new Vector3(x, y, z + 0.5f), Quaternion.LookRotation(new Vector3(0, 0, 1)), "posZ");
                             break;
                         }
                     }
@@ -136,7 +138,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y, z - 0.5f), Quaternion.LookRotation(new Vector3(0, 0, -1)));
+                            if(empty) AttachNode(new Vector3(x, y, z - 0.5f), Quaternion.LookRotation(new Vector3(0, 0, -1)), "negZ");
                             break;
                         }
                     }
@@ -145,8 +147,10 @@ public class AddNodes : MonoBehaviour {
         }
     }
 
-    void AttachNode(Vector3 pos, Quaternion rotation) {
+    void AttachNode(Vector3 pos, Quaternion rotation, string direction) {
         if(excluded.Any(item => item == pos)) return;
+
+        node.GetComponent<Node>().SetDirection(direction);
 
         // Debug.Log("AttachNode: " + pos);
         Instantiate(node, pos, rotation, this.transform);

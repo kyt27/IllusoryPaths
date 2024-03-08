@@ -153,7 +153,7 @@ public class NavController : MonoBehaviour {
                 currentNode = targetNode;
 
                 // invoke UnityEvent associated with next Node
-                // targetNode.gameEvent.Invoke();
+                targetNode.Interact();
                 Debug.Log("invoked GameEvent from targetNode: " + targetNode.name);
             }
 

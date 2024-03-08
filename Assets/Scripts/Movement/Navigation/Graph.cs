@@ -50,7 +50,7 @@ public class Graph : MonoBehaviour
             }
         }
 
-        Debug.Log(closestDistanceSqr);
+        // Debug.Log(closestDistanceSqr);
         return closestNode;
     }
 
