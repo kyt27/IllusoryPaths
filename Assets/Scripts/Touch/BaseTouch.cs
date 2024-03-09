@@ -11,6 +11,7 @@ public abstract class BaseTouch : MonoBehaviour {
 
     void Start() {
         myCamera = Camera.main;
+        Initialise();
     }
 
     void Update() {
@@ -24,10 +25,15 @@ public abstract class BaseTouch : MonoBehaviour {
         ray = myCamera.ScreenPointToRay(myInput);
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
-                Debug.Log(this.gameObject.name + myInput);
+                // Debug.Log(this.gameObject.name + myInput);
+                transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
                 Action(myInput);
             }
         }
+    }
+
+    internal virtual void Initialise() {
+        return;
     }
 
     internal abstract void Action(Vector3 myInput);

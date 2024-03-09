@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AddNodes : MonoBehaviour {
@@ -9,6 +10,8 @@ public class AddNodes : MonoBehaviour {
     [SerializeField] private bool negY;
     [SerializeField] private bool posZ;
     [SerializeField] private bool negZ;
+
+    public List<Vector3> excluded;
 
     private GameObject node;
 
@@ -20,15 +23,27 @@ public class AddNodes : MonoBehaviour {
         node = new GameObject("Node");
         node.AddComponent<Node>();
 
-        Debug.Log(GetComponent<Collider>().bounds.center);
-        Debug.Log(GetComponent<Collider>().bounds.size);
-        Debug.Log(GetComponent<Collider>().bounds.min);
-        Debug.Log(GetComponent<Collider>().bounds.max);
+        AddExcludedNodes();
+
+        // Debug.Log(GetComponent<Collider>().bounds.center);
+        // Debug.Log(GetComponent<Collider>().bounds.size);
+        // Debug.Log(GetComponent<Collider>().bounds.min);
+        // Debug.Log(GetComponent<Collider>().bounds.max);
 
         Vector3 minCoords = GetComponent<Collider>().bounds.min;
         Vector3 maxCoords = GetComponent<Collider>().bounds.max;
 
         SpawnNodes(minCoords, maxCoords);
+
+        Destroy(node);
+    }
+
+    void AddExcludedNodes() {
+        List<Node> allNodes = GetComponentsInChildren<Node>().ToList();
+        foreach(Node n in allNodes) {
+            excluded.Add(n.transform.position);
+            // Debug.Log("excluded: " + n.transform.position);
+        }
     }
 
     void SpawnNodes(Vector3 minCoords, Vector3 maxCoords) {
@@ -41,7 +56,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x + 0.5f, y, z), Quaternion.LookRotation(new Vector3(1, 0, 0)));
+                            if(empty) AttachNode(new Vector3(x + 0.5f, y, z), Quaternion.LookRotation(new Vector3(1, 0, 0)), "posX");
                             break;
                         }
                     }
@@ -57,7 +72,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x - 0.5f, y, z), Quaternion.LookRotation(new Vector3(-1, 0, 0)));
+                            if(empty) AttachNode(new Vector3(x - 0.5f, y, z), Quaternion.LookRotation(new Vector3(-1, 0, 0)), "negX");
                             break;
                         }
                     }
@@ -73,7 +88,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y + 0.5f, z), Quaternion.LookRotation(new Vector3(0, 1, 0)));
+                            if(empty) AttachNode(new Vector3(x, y + 0.5f, z), Quaternion.LookRotation(new Vector3(0, 1, 0)), "posY");
                             break;
                         }
                     }
@@ -89,7 +104,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y - 0.5f, z), Quaternion.LookRotation(new Vector3(0, -1, 0)));
+                            if(empty) AttachNode(new Vector3(x, y - 0.5f, z), Quaternion.LookRotation(new Vector3(0, -1, 0)), "negY");
                             break;
                         }
                     }
@@ -105,7 +120,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y, z + 0.5f), Quaternion.LookRotation(new Vector3(0, 0, 1)));
+                            if(empty) AttachNode(new Vector3(x, y, z + 0.5f), Quaternion.LookRotation(new Vector3(0, 0, 1)), "posZ");
                             break;
                         }
                     }
@@ -121,7 +136,7 @@ public class AddNodes : MonoBehaviour {
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {
-                            if(empty) AttachNode(new Vector3(x, y, z - 0.5f), Quaternion.LookRotation(new Vector3(0, 0, -1)));
+                            if(empty) AttachNode(new Vector3(x, y, z - 0.5f), Quaternion.LookRotation(new Vector3(0, 0, -1)), "negZ");
                             break;
                         }
                     }
@@ -130,7 +145,12 @@ public class AddNodes : MonoBehaviour {
         }
     }
 
-    void AttachNode(Vector3 pos, Quaternion rotation) {
+    void AttachNode(Vector3 pos, Quaternion rotation, string direction) {
+        if(excluded.Any(item => item == pos)) return;
+
+        node.GetComponent<Node>().SetDirection(direction);
+
+        // Debug.Log("AttachNode: " + pos);
         Instantiate(node, pos, rotation, this.transform);
     }
 }

@@ -9,6 +9,8 @@ public class Node : MonoBehaviour {
     [SerializeField] private Color selectedGizmoColor = Color.blue;
     [SerializeField] private Color inactiveGizmoColor = Color.gray;
 
+    [SerializeField] private bool enabled = true;
+
     // neighboring nodes + active state
     [SerializeField] private List<Edge> edges = new List<Edge>();
 
@@ -21,27 +23,51 @@ public class Node : MonoBehaviour {
     // previous Node that forms a "breadcrumb" trail back to the start
     private Node previousNode;
 
-    // invoked when Player enters this node
-    public GameObject gameEvent;
-
-    // properties
+    public List<GameObject> controlledObjects;
     
     public Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
     public List<Edge> Edges => edges;
 
+    [SerializeField] private bool posX;
+    [SerializeField] private bool negX;
+    [SerializeField] private bool posY;
+    [SerializeField] private bool negY;
+    [SerializeField] private bool posZ;
+    [SerializeField] private bool negZ;
+
     // 3d compass directions to check for all neighbors automatically
-    public static Vector3[] neighbourDirections = {
+    public static Vector3[] xNeighbourDirections = {
+        new Vector3(0f, 1f, 0f),
+        new Vector3(0f, -1f, 0f),
+        new Vector3(0f, 0f, 1f),
+        new Vector3(0f, 0f, -1f),
+    };
+
+    public static Vector3[] yNeighbourDirections = {
         new Vector3(1f, 0f, 0f),
         new Vector3(-1f, 0f, 0f),
         new Vector3(0f, 0f, 1f),
         new Vector3(0f, 0f, -1f),
     };
+
+    public static Vector3[] zNeighbourDirections = {
+        new Vector3(1f, 0f, 0f),
+        new Vector3(-1f, 0f, 0f),
+        new Vector3(0f, 1f, 0f),
+        new Vector3(0f, -1f, 0f),
+    };
         
     private void Start() {
+        if (!posX && !negX && !posY && !negY && !posZ && !negZ) {
+            posY = true;
+        }
+
         // automatic connect Edges with horizontal Nodes
         if (graph != null) {
             FindNeighbours();
         }
+
+        if(!enabled) DisableNode();
     }
 
     // draws a sphere gizmo
@@ -67,6 +93,15 @@ public class Node : MonoBehaviour {
     // fill out edge connections to neighbouring nodes automatically
     public void FindNeighbours() {
         // search through possible neighbour offsets
+        Vector3[] neighbourDirections = new Vector3[4];
+        if (posX || negX) {
+            neighbourDirections = xNeighbourDirections;
+        } else if(posY || negY) {
+            neighbourDirections = yNeighbourDirections;
+        } else if(posZ || negZ) {
+            neighbourDirections = zNeighbourDirections;
+        }
+        
         foreach (Vector3 direction in neighbourDirections) {
             Node newNode = graph?.FindNodeAt(transform.position + direction);
 
@@ -90,14 +125,74 @@ public class Node : MonoBehaviour {
 
     // given a specific neighbour, sets active state
     public void EnableEdge(Node neighbourNode, bool state) {
+        bool exists = false;
+
         foreach (Edge e in edges) {
             if (e.neighbour.Equals(neighbourNode)) {
+                exists = true;
                 e.isActive = state;
             }
+        }
+
+        if(!exists) {
+            Edge newEdge = new Edge { neighbour = neighbourNode, isActive = state };
+            edges.Add(newEdge);
         }
     }
 
     public void InitGraph(Graph graphToInit) {
         this.graph = graphToInit;
+    }
+
+    public void Interact() {
+        foreach(GameObject obj in controlledObjects) {
+            obj.GetComponent<BaseNodeInteractable>().Action(transform.position);
+        }
+    }
+
+    public void DisableNode() {
+        foreach (Edge e in edges) {
+            e.isActive = false;
+            e.neighbour.EnableEdge(this, false);
+        }
+    }
+
+    public void EnableNode() {
+        foreach (Edge e in edges) {
+            e.isActive = true;
+            e.neighbour.EnableEdge(this, true);
+        }
+    }
+
+    public void SetDirection(string direction) {
+        posX = false;
+        negX = false;
+        posY = false;
+        negY = false;
+        posZ = false;
+        negZ = false;
+        switch(direction) {
+            case "posX":
+                posX = true;
+                break;
+            case "negX":
+                negX = true;
+                break;
+            case "posY":
+                posY = true;
+                break;
+            case "negY":
+                negY = true;
+                break;
+            case "posZ":
+                posZ = true;
+                break;
+            case "negZ":
+                negZ = true;
+                break;
+            default:
+                Debug.Log("NO VALID DIRECTION");
+                break;
+        }
     }
 }

@@ -168,6 +168,10 @@ public class Pathfinder : MonoBehaviour
             if (bestPath.Count > 0 && possiblePath.Count < bestPath.Count) {
                 bestPath = possiblePath;
             }
+
+            if (isPathComplete && isSearchComplete) {
+                break;
+            }
         }
 
         if (bestPath.Count <= 1) {

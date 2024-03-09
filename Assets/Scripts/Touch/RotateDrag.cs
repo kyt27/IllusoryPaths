@@ -17,10 +17,16 @@ public class RotateDrag : BaseTouch {
 
     private float selfYAngle;
 
+    private RotationLinker rotationLinker;
+
     internal override void Action(Vector3 myInput) {
         actionPersist = true;
         isRotating = true;
         startPosition = myInput.x;
+    }
+
+    internal override void Initialise() {
+        rotationLinker = GetComponent<RotationLinker>();
     }
 
     internal override void TogglePersist() {
@@ -48,6 +54,15 @@ public class RotateDrag : BaseTouch {
             Rotate(Input.touches[0].position.x);
         }
     }
+    
+    void Rotate(float currentPosition) {
+        float movement = currentPosition - startPosition;
+        transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        foreach(GameObject obj in rotateTogether) {
+            obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        }
+        startPosition = currentPosition;
+    }
 
     void StopRotation() {
         isRotating = false;
@@ -73,14 +88,9 @@ public class RotateDrag : BaseTouch {
             obj.transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
         }
         transform.Rotate(Vector3.up, rotateTo - transform.rotation.eulerAngles.y);
-    }
 
-    void Rotate(float currentPosition) {
-        float movement = currentPosition - startPosition;
-        transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-        foreach(GameObject obj in rotateTogether) {
-            obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-        }
-        startPosition = currentPosition;
+        if(rotationLinker == null) return;
+
+        rotationLinker.UpdateRotationLinks();
     }
 }

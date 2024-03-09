@@ -53,7 +53,7 @@ public class NavController : MonoBehaviour {
         ray = myCamera.ScreenPointToRay(myInput);
         if(Physics.Raycast(ray, out hit)) {
             if(hit.transform.tag != "Interactable") {
-                Debug.Log(hit.point);
+                // Debug.Log(hit.point);
                 OnClick(hit.point);
             }
         }
@@ -82,8 +82,10 @@ public class NavController : MonoBehaviour {
     private void OnClick(Vector3 pos) {
         if (!isControlEnabled || pathfinder == null) return;
 
-        Node nearestNode = graph?.FindClosestNode(pos);
-        Node[] nodeList = new Node[]{nearestNode};
+        // Node nearestNode = graph?.FindClosestNode(pos);
+        // Node[] nodeList = new Node[]{ nearestNode };
+
+        Node[] nodeList = graph?.FindClosestNodes(pos);
 
         // find the best path to the any Nodes under the Clickable; gives the user some flexibility
         List<Node> newPath = pathfinder.FindBestPath(currentNode, nodeList);
@@ -146,12 +148,12 @@ public class NavController : MonoBehaviour {
             transform.position = Vector3.Lerp(startPosition, targetPos, lerpValue);
 
             // if over halfway, change parent to next node
-            if (lerpValue > 0.51f) {
+            if (lerpValue > 0.51f && transform.parent.position != targetNode.transform.position) {
                 transform.parent = targetNode.transform;
                 currentNode = targetNode;
 
                 // invoke UnityEvent associated with next Node
-                // targetNode.gameEvent.Invoke();
+                targetNode.Interact();
                 Debug.Log("invoked GameEvent from targetNode: " + targetNode.name);
             }
 
@@ -167,6 +169,11 @@ public class NavController : MonoBehaviour {
             currentNode = nearestNode;
             transform.position = nearestNode.transform.position;
         }
+    }
+
+    public void SnapToCurrentNode() {
+        StopAllCoroutines();
+        transform.position = currentNode.transform.position;
     }
 
     // turn face the next Node, always projected on a plane at the Player's feet
