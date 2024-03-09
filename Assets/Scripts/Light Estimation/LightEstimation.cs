@@ -42,6 +42,7 @@ public class LightEstimation : MonoBehaviour
         if (args.lightEstimation.averageBrightness.HasValue)
             {
                 //brightness = args.lightEstimation.averageBrightness.Value;
+                Debug.Log(args.lightEstimation.averageBrightness.Value);
                 light.intensity = args.lightEstimation.averageBrightness.Value;
             }
             else
