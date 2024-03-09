@@ -2525,6 +2525,11 @@ PrefabInstance:
       propertyPath: offsetRange
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8353142733665540581, guid: aab0a415d0b5c0443b7d8aebb1036527,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8829790935561793488, guid: aab0a415d0b5c0443b7d8aebb1036527,
         type: 3}
       propertyPath: m_Name
@@ -2533,7 +2538,7 @@ PrefabInstance:
     - target: {fileID: 8829790935561793488, guid: aab0a415d0b5c0443b7d8aebb1036527,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
