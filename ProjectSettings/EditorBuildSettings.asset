@@ -8,9 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ExampleAssets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ARTestScene.unity
     guid: 63a0e1b44b01fac4991076768f872085
+  - enabled: 0
+    path: Assets/Scenes/MenuScreen.unity
+    guid: dce583080221d1b4ebe47e355e82ce17
+  - enabled: 1
+    path: Assets/Scenes/TestLevelAR.unity
+    guid: e565fa7d8c3be4d48a1560d05433883a
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
