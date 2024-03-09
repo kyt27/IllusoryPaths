@@ -68,9 +68,7 @@ public class AddNodes : MonoBehaviour {
                 for(float z=Mathf.Ceil(minCoords.z); z<=Mathf.Floor(maxCoords.z); z++) {
                     bool empty = false;
                     for(float x=Mathf.Floor(minCoords.x); x<=Mathf.Floor(maxCoords.x); x++) {
-                        Debug.Log(new Vector3(x, y, z));
                         Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.49f);
-                        Debug.Log(hitColliders.Length);
                         if(hitColliders.Length == 0) {
                             empty = true;
                         } else {

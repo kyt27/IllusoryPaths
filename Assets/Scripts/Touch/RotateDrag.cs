@@ -54,6 +54,15 @@ public class RotateDrag : BaseTouch {
             Rotate(Input.touches[0].position.x);
         }
     }
+    
+    void Rotate(float currentPosition) {
+        float movement = currentPosition - startPosition;
+        transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        foreach(GameObject obj in rotateTogether) {
+            obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
+        }
+        startPosition = currentPosition;
+    }
 
     void StopRotation() {
         isRotating = false;
@@ -83,14 +92,5 @@ public class RotateDrag : BaseTouch {
         if(rotationLinker == null) return;
 
         rotationLinker.UpdateRotationLinks();
-    }
-
-    void Rotate(float currentPosition) {
-        float movement = currentPosition - startPosition;
-        transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-        foreach(GameObject obj in rotateTogether) {
-            obj.transform.Rotate(Vector3.up, -movement * rotationSpeed * Time.deltaTime);
-        }
-        startPosition = currentPosition;
     }
 }

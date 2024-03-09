@@ -23,7 +23,7 @@ public class Node : MonoBehaviour {
     // previous Node that forms a "breadcrumb" trail back to the start
     private Node previousNode;
 
-    public List<GameObject> interactables;
+    public List<GameObject> controlledObjects;
     
     public Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
     public List<Edge> Edges => edges;
@@ -145,7 +145,7 @@ public class Node : MonoBehaviour {
     }
 
     public void Interact() {
-        foreach(GameObject obj in interactables) {
+        foreach(GameObject obj in controlledObjects) {
             obj.GetComponent<BaseNodeInteractable>().Action(transform.position);
         }
     }

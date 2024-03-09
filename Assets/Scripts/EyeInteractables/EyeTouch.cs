@@ -14,7 +14,7 @@ public class EyeTouch : MonoBehaviour {
     [SerializeField] private float acceptViewAngle = 20.0f;
     [SerializeField] private float acceptViewDist = 3.5f;
 
-    [SerializeField] private GameObject controlled;
+    [SerializeField] private GameObject controlledObjects;
 
     private Camera myCamera;
     private Vector3 normal;
@@ -29,8 +29,8 @@ public class EyeTouch : MonoBehaviour {
         if(hintViewAngle < acceptViewAngle) throw new System.Exception("hintViewAngle must be greater or equal to acceptViewAngle");
         if(hintViewDist < acceptViewDist) throw new System.Exception("hintViewDist must be greater or equal to acceptViewDist");
 
-        if(controlled == null) throw new System.Exception("no object assigned to eye");
-        if(controlled.GetComponent<BaseEyeInteractable>() == null) throw new System.Exception("assigned object needs to contain script extending BaseEyeInteractable");
+        if(controlledObjects == null) throw new System.Exception("no object assigned to eye");
+        if(controlledObjects.GetComponent<BaseEyeInteractable>() == null) throw new System.Exception("assigned object needs to contain script extending BaseEyeInteractable");
     }
 
     void Update() {
@@ -48,6 +48,7 @@ public class EyeTouch : MonoBehaviour {
 
         if(testInteractable) {
             GetComponent<MeshRenderer>().material = eyeMaterials[2];
+            interactable = true;
         } else if(viewAngle > hintViewAngle || viewDist > hintViewDist) {
             GetComponent<MeshRenderer>().material = eyeMaterials[0];
             interactable = false;
@@ -59,7 +60,7 @@ public class EyeTouch : MonoBehaviour {
             interactable = true;
         }
 
-        if(interactable || testInteractable) {
+        if(interactable) {
             IsClickObject();
         }
     }
@@ -70,7 +71,7 @@ public class EyeTouch : MonoBehaviour {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
                 // Debug.Log(this.gameObject.name + myInput);
                 transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
-                controlled.GetComponent<BaseEyeInteractable>().Action(myInput);
+                controlledObjects.GetComponent<BaseEyeInteractable>().Action(myInput);
             }
         }
     }
