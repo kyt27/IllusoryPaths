@@ -13,12 +13,17 @@ public class Graph : MonoBehaviour
     public Node GoalNode => goalNode;
 
     private void Awake() {
-        allNodes = GetComponentsInChildren<Node>().ToList();
+        GraphHelper helper = GetComponent<GraphHelper>();
+        if(helper != null) {
+            allNodes = helper.allNodes;
+        } else {
+            allNodes = GetComponentsInChildren<Node>().ToList();
+        }
         // Debug.Log(allNodes.Count);
-        InitNodes();
     }
 
     private void Start() {
+        InitNodes();
         InitNeighbours();
     }
 

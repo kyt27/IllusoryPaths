@@ -154,7 +154,7 @@ public class NavController : MonoBehaviour {
 
                 // invoke UnityEvent associated with next Node
                 targetNode.Interact();
-                Debug.Log("invoked GameEvent from targetNode: " + targetNode.name);
+                // Debug.Log("invoked GameEvent from targetNode: " + targetNode.name);
             }
 
             // wait one frame
