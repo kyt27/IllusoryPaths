@@ -21,7 +21,7 @@ public class PlayerAnimation : MonoBehaviour {
     //  toggle between idle and walking animation
     public void ToggleAnimation(bool state) {
         if (animator != null) {
-            animator?.SetBool("isMoving", state);
+            animator.SetInteger ("AnimationPar", state ? 1 : 0);
         }
 
     }
