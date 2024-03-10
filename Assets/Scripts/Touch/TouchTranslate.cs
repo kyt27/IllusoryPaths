@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public abstract class EyeTranslate : BaseEyeInteractable
+public class TouchTranslate : BaseTouch
 {
     protected Vector3 targetPos;
 
@@ -26,7 +26,7 @@ public abstract class EyeTranslate : BaseEyeInteractable
         targetPos = transform.position;
     }
 
-    public override void Action(Vector3 myInput)
+    internal override void Action(Vector3 myInput)
     {
         if (!singleUse || !activated)
         {
@@ -40,7 +40,6 @@ public abstract class EyeTranslate : BaseEyeInteractable
     {
         return;
     }
-
 
     //  lerp to destination from current position
     private IEnumerator MoveToPositionRoutine()

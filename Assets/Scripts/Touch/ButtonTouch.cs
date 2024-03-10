@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ButtonTouch : BaseTouch {
     [SerializeField]
-    private GameObject controlled;
+    private List<GameObject> controlled;
 
     internal override void Action(Vector3 myInput) {
-        controlled.transform.position += Vector3.up;
+        foreach (GameObject obj in controlled)
+        {
+            obj.GetComponent<BaseTouch>().Action(myInput);
+        }
     }
 }

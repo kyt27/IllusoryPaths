@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public abstract class EyeTranslate : BaseEyeInteractable
+public abstract class NodeTranslate : BaseNodeInteractable
 {
     protected Vector3 targetPos;
 
-    // flag for whether this behaviour can be activated multiple times
+    public Node node;
+
+    // flag for whether this node's action can be activated multiple times
     [SerializeField] private bool singleUse = false;
 
-    // flag for whether this behaviour has been activated or not
+    // flag for whether this node has been activated or not
     protected bool activated = false;
 
     // time that the movement should take
@@ -28,9 +30,10 @@ public abstract class EyeTranslate : BaseEyeInteractable
 
     public override void Action(Vector3 myInput)
     {
-        if (!singleUse || !activated)
+        if (node != null && (!singleUse || !activated))
         {
             UpdateTarget();
+            node.EnableNode();
             StartCoroutine(MoveToPositionRoutine());
             activated = true;
         }
@@ -40,7 +43,6 @@ public abstract class EyeTranslate : BaseEyeInteractable
     {
         return;
     }
-
 
     //  lerp to destination from current position
     private IEnumerator MoveToPositionRoutine()

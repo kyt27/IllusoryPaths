@@ -25,6 +25,7 @@ public class ShiftLinker : MonoBehaviour {
 
     // enable/disable based on transform's position
     public void UpdateShiftLinks() {
+        Debug.Log("updated shift links");
         foreach (ShiftLink l in shiftLinks) {
             if (l.pos == null || l.nodeA == null || l.nodeB == null) continue;
 
