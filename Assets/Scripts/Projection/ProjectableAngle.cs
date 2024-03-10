@@ -9,6 +9,7 @@ public class ProjectableAngle : MonoBehaviour
         public float eps2;
         public float offsetRange;
         public Vector3 splitAxis = new Vector3(0, 0, 1);
+        public ProjectionInteractable callback;
 
         private Vector3 m_prevTouch = -Vector2.one;//screen coordinates
         private Camera camera;
@@ -37,7 +38,7 @@ public class ProjectableAngle : MonoBehaviour
         for (int i = 0; i < nodes.Length; i++) {
             nodes[i].EnableNode();
         }
-
+        callback.Action();
     //     yield return null;
     }
 
