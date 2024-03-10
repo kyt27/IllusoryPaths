@@ -72,15 +72,15 @@ public class AutoRotationLinker : MonoBehaviour{
 
     private void FindNeighboursToLink(Node curNode, Vector3 activeEulerAngle) {
         // search through possible neighbour offsets
-        Vector3[] neighbourDirections = new Vector3[4];
-        if (curNode.posX || curNode.negX) {
-            neighbourDirections = Node.xNeighbourDirections;
-        } else if(curNode.posY || curNode.negY) {
-            neighbourDirections = Node.yNeighbourDirections;
-        } else if(curNode.posZ || curNode.negZ) {
-            neighbourDirections = Node.zNeighbourDirections;
-        }
-        
+        Vector3[] neighbourDirections = {
+            new Vector3(1f, 0f, 0f),
+            new Vector3(-1f, 0f, 0f),
+            new Vector3(0f, 1f, 0f),
+            new Vector3(0f, -1f, 0f),
+            new Vector3(0f, 0f, 1f),
+            new Vector3(0f, 0f, -1f),
+        };
+
         foreach (Vector3 direction in neighbourDirections) {
             Node newNode = FindNodeAt(curNode.transform.position + direction);
             if(newNode != null) {
