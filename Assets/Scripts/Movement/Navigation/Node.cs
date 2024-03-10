@@ -15,7 +15,7 @@ public class Node : MonoBehaviour {
     [SerializeField] private List<Edge> edges = new List<Edge>();
 
     // Nodes specifically excluded from Edges
-    [SerializeField] private List<Node> excludedNodes;
+    public List<Node> excludedNodes;
 
     // reference to the graph
     private Graph graph;
@@ -28,12 +28,12 @@ public class Node : MonoBehaviour {
     public Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
     public List<Edge> Edges => edges;
 
-    [SerializeField] private bool posX;
-    [SerializeField] private bool negX;
-    [SerializeField] private bool posY;
-    [SerializeField] private bool negY;
-    [SerializeField] private bool posZ;
-    [SerializeField] private bool negZ;
+    public bool posX;
+    public bool negX;
+    public bool posY;
+    public bool negY;
+    public bool posZ;
+    public bool negZ;
 
     // 3d compass directions to check for all neighbors automatically
     public static Vector3[] xNeighbourDirections = {
@@ -114,7 +114,7 @@ public class Node : MonoBehaviour {
     }
 
     // is a Node already in the Edges List?
-    private bool HasNeighbour(Node node) {
+    public bool HasNeighbour(Node node) {
         foreach (Edge e in edges) {
             if (e.neighbour != null && e.neighbour.Equals(node)) {
                 return true;

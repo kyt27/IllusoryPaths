@@ -18,8 +18,7 @@ public class RotateDrag : BaseTouch {
 
     public GameObject[] rotateTogether;
 
-    [SerializeField]
-    private float[] snapAngles = {0, 90, 180, 270};
+    public float[] snapAngles = {0, 90, 180, 270};
 
     private RotationLinker rotationLinker;
 
@@ -31,16 +30,19 @@ public class RotateDrag : BaseTouch {
     }
 
     internal override void Initialise() {
-        rotationLinker = GetComponent<RotationLinker>();
-
         if(!xAxis && !yAxis && !zAxis) {
             yAxis = true;
         }
 
-        if(xAxis) direction = Vector3.left;
-        else if(yAxis) direction = Vector3.up;
-        else if(zAxis) direction = Vector3.forward;
+        direction = GetDirection();
+    }
+
+    public Vector3 GetDirection() {
+        if(xAxis) return Vector3.right;
+        else if(yAxis) return Vector3.up;
+        else if(zAxis) return Vector3.forward;
         else Debug.Log("NO AXIS DETECTED IN ROTATION");
+        return new Vector3();
     }
 
     internal override void TogglePersist() {
@@ -81,9 +83,9 @@ public class RotateDrag : BaseTouch {
         startPosition = currentPosition;
     }
 
-    private float GetXDegrees(Transform t) {
+    public static float GetXDegrees(Transform t) {
         float radians = Mathf.Atan2(t.forward.y, -t.forward.z);
-        return 180 + radians * Mathf.Rad2Deg;
+        return 180f + radians * Mathf.Rad2Deg;
     }
 
     void StopRotation() {
@@ -113,7 +115,6 @@ public class RotateDrag : BaseTouch {
 
         for(int i=0; i<snapAngles.Length; i++) {
             float temp = System.Math.Min(System.Math.Abs(angle - (snapAngles[i] + parentAngle + 720) % 360), 360 - System.Math.Abs(angle - (snapAngles[i] + parentAngle + 720) % 360));
-            Debug.Log(i + " " + snapAngles[i] + " " + temp);
             if(temp < curMinAngle) {
                 snapTo = i;
                 curMinAngle = temp;
@@ -123,12 +124,11 @@ public class RotateDrag : BaseTouch {
         float rotateTo = snapAngles[snapTo] + parentAngle;
 
         foreach(GameObject obj in rotateTogether) {
-            if(xAxis) obj.transform.Rotate(direction, - rotateTo + rotationAngle);
-            else obj.transform.Rotate(direction, rotateTo - rotationAngle);
+            obj.transform.Rotate(direction, rotateTo - rotationAngle);
         }
-        if(xAxis) transform.Rotate(direction, - rotateTo + rotationAngle);
-        else transform.Rotate(direction, rotateTo - rotationAngle);
+        transform.Rotate(direction, rotateTo - rotationAngle);
 
+        rotationLinker = GetComponent<RotationLinker>();
         if(rotationLinker == null) return;
 
         rotationLinker.UpdateRotationLinks();

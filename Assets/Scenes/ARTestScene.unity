@@ -5229,7 +5229,6 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
-  - component: {fileID: 705507997}
   - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
@@ -5324,24 +5323,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cbfeb8d3fa1bec4db2fcb343b475ed4, type: 3}
+  m_Script: {fileID: 11500000, guid: f772edbe2fa405f4e8a5545e7045bade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_CameraManager: {fileID: 22732922}
   m_Arrow: {fileID: 0}
---- !u!114 &705507997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26540f475ea74ff48a9d2fdaa19c41b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CameraManager: {fileID: 22732922}
 --- !u!1 &746300903
 GameObject:
   m_ObjectHideFlags: 0
