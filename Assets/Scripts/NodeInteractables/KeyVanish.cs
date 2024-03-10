@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorRise : BaseNodeInteractable {
+public class KeyVanish : BaseNodeInteractable {
     public Node node;
 
     bool activated = false;
@@ -10,7 +10,7 @@ public class DoorRise : BaseNodeInteractable {
     public override void Action(Vector3 myInput) {
         if(!activated && node != null) {
             node.EnableNode();
-            transform.position += new Vector3(0, 2, 0);
+            Destroy(gameObject);
             activated = true;
         }
     }
