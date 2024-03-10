@@ -20,11 +20,14 @@ public class PlaceAndChangeTrackedImage : MonoBehaviour {
     private static int sceneNumber = 0;
     public static GameObject[] _instantiatedPrefabs;
 
+    private string curPrefab;
+
     void Awake() {
         // Cache a reference to the Tracked Image Manager component
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
         sceneLength = ArPrefabs.Length;
         _instantiatedPrefabs = new GameObject[sceneLength];
+        curPrefab = "";
     }
 
     void OnEnable() {

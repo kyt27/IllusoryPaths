@@ -145,7 +145,7 @@ public class AddNodes : MonoBehaviour {
         }
     }
 
-    void AttachNode(Vector3 pos, Quaternion rotation, string direction) {
+    void AttachNode(Vector3 pos, Quaternion rotation, string direction) {   
         if(excluded.Any(item => item == pos)) return;
 
         node.GetComponent<Node>().SetDirection(direction);
