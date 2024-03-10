@@ -17,9 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KW_HarderLevel.unity
     guid: 33e34c0ec54fb4f43ada64c9708df661
-    path: Assets/Scenes/MenuScreen.unity
-    guid: dce583080221d1b4ebe47e355e82ce17
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestLevelAR.unity
     guid: e565fa7d8c3be4d48a1560d05433883a
   m_configObjects:

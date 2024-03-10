@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EyeTransformObject : BaseEyeInteractable
@@ -86,8 +85,7 @@ public class EyeTransformObject : BaseEyeInteractable
 
         if (shiftLinker != null)
         {
-            shiftLinker.UpdateShiftLinks();
-            // note to self: just activate the links that's literally it
+            shiftLinker.ActivateAllShiftLinks();
         }
     }
 }

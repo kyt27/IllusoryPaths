@@ -43,6 +43,14 @@ public class ShiftLinker : MonoBehaviour {
         }
     }
 
+    public void ActivateAllShiftLinks()
+    {
+        foreach (ShiftLink l in shiftLinks)
+        {
+            EnableLink(l.nodeA, l.nodeB, true);
+        }
+    }
+
     // update links when we begin
     private void Start() {
         UpdateShiftLinks();
