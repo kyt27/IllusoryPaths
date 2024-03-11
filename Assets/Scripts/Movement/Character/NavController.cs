@@ -140,9 +140,13 @@ public class NavController : MonoBehaviour {
         // validate move time
         moveTime = Mathf.Clamp(moveTime, 0.1f, 5f);
 
-        while (elapsedTime < moveTime && targetNode != null && !HasReachedNode(targetNode)) {
+        // change move time based on distance that will be moved
+        float dist = (startPosition - targetNode.transform.position).magnitude;
+        float adjustedMoveTime = moveTime * dist;
+
+        while (elapsedTime < adjustedMoveTime && targetNode != null && !HasReachedNode(targetNode)) {
             elapsedTime += Time.deltaTime;
-            float lerpValue = Mathf.Clamp(elapsedTime / moveTime, 0f, 1f);
+            float lerpValue = Mathf.Clamp(elapsedTime / adjustedMoveTime, 0f, 1f);
 
             Vector3 targetPos = targetNode.transform.position;
             transform.position = Vector3.Lerp(startPosition, targetPos, lerpValue);
