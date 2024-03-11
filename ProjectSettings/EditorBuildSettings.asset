@@ -14,15 +14,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/KW_BasicLevel.unity
     guid: 95be2d4d128a34f9ea4a28250cc74136
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KW_HarderLevel.unity
     guid: 33e34c0ec54fb4f43ada64c9708df661
   - enabled: 0
     path: Assets/Scenes/TestLevelAR.unity
     guid: e565fa7d8c3be4d48a1560d05433883a
-  - enabled: 1
-    path: Assets/Scenes/Showcase.unity
+  - enabled: 0
+    path: Assets/Scenes/Showcase 1.unity
     guid: abbccc9f72fd4ff4d810ae217781de9e
+  - enabled: 1
+    path: Assets/Scenes/Illusory Paths.unity
+    guid: 466ac3d35782d104cbbaac31d41e81d1
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

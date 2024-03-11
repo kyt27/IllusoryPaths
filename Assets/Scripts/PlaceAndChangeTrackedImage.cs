@@ -20,6 +20,9 @@ public class PlaceAndChangeTrackedImage : MonoBehaviour {
     private static int sceneNumber = 0;
     public static GameObject[] _instantiatedPrefabs;
 
+    [SerializeField]
+    private GameObject testInstantiate;
+
     private string curPrefab;
 
     void Awake() {
@@ -44,6 +47,8 @@ public class PlaceAndChangeTrackedImage : MonoBehaviour {
                 _instantiatedPrefabs[i].SetActive(false);
             }
         }
+
+        Instantiate(testInstantiate, _instantiatedPrefabs[0].transform);
     
         // For all prefabs that have been created so far, set them active or not depending on whether their corresponding image is currently being tracked
         foreach (var trackedImage in eventArgs.updated) {

@@ -451,6 +451,7 @@ MonoBehaviour:
   eps2: 0
   offsetRange: 4
   splitAxis: {x: 0, y: 0, z: 1}
+  callback: {fileID: 0}
 --- !u!114 &8795631217145385365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,6 +954,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  xAxis: 0
+  yAxis: 0
+  zAxis: 0
   rotateTogether:
   - {fileID: 6450801281547341227}
   - {fileID: 6328401202387729123}
@@ -9647,7 +9651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8321461789716347365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9665,7 +9669,7 @@ Transform:
   - {fileID: 6127966024950650951}
   - {fileID: 3669334969441276533}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2902460095391443281
 MonoBehaviour:

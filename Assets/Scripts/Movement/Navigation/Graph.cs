@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// [RequireComponent(typeof(GlobalAlign))]
 public class Graph : MonoBehaviour
 {
     // all of the Nodes in the current level/maze

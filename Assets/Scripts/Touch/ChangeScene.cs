@@ -5,6 +5,6 @@ using UnityEngine;
 public class ChangeScene : BaseTouch {
 
     internal override void Action(Vector3 myInput) {
-        PlaceAndChangeTrackedImage.ChangePrefab();
+        // PlaceAndChangeTrackedImage.ChangePrefab();
     }
 }

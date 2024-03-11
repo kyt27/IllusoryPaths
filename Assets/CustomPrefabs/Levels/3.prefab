@@ -1976,12 +1976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b35717f0adc79408e18a52d06eea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyeMaterials:
-  - {fileID: 2100000, guid: f27f81accacba6842ad2d27bf9f485b3, type: 2}
-  - {fileID: 2100000, guid: dbf651b174d35fe47ae63c0aba56b3e2, type: 2}
-  - {fileID: 2100000, guid: a5caa340bf4e0a148985eeedee977ba9, type: 2}
-  acceptViewAngle: 15
-  acceptViewDist: 5
 --- !u!1 &1652976094913924460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,6 +2640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  xAxis: 0
+  yAxis: 0
+  zAxis: 0
   rotateTogether:
   - {fileID: 59637065674756536}
   - {fileID: 4685035373479182904}
@@ -3019,6 +3016,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005826cab9b71814ca7b55ae5858f064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleUse: 0
+  moveTime: 0.5
+  riseDistance: 1
 --- !u!1 &4554666627252571295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4453,7 +4453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6340533a34b72c04dba5fbf919d09365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlled: {fileID: 8756688783956998499}
+  controlled:
+  - {fileID: 0}
 --- !u!1 &6511145116293830530
 GameObject:
   m_ObjectHideFlags: 0
@@ -4478,7 +4479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6511145116293830530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

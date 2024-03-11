@@ -15,7 +15,25 @@ public class AddNodes : MonoBehaviour {
 
     private GameObject node;
 
-    void Awake() {
+    /*
+    private Vector3 curAngle;
+    private Vector3 parentAngle;
+
+    public static float GetXDegrees(Transform t) {
+        float radians = Mathf.Atan2(t.forward.y, -t.forward.z);
+        return 180f + radians * Mathf.Rad2Deg;
+    }
+
+    public void Align() {
+        curAngle = new Vector3(GetXDegrees(this.transform), this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z);
+        parentAngle = new Vector3(GetXDegrees(transform.parent.transform), transform.parent.transform.rotation.eulerAngles.y, transform.parent.transform.rotation.eulerAngles.z);
+
+        transform.Rotate(parentAngle - curAngle);
+    }
+    */
+
+    // public void RunAddNodesAwake() {
+    public void Awake() {
         if (!posX && !negX && !posY && !negY && !posZ && !negZ) {
             posY = true;
         }
@@ -25,15 +43,15 @@ public class AddNodes : MonoBehaviour {
 
         AddExcludedNodes();
 
-        // Debug.Log(GetComponent<Collider>().bounds.center);
-        // Debug.Log(GetComponent<Collider>().bounds.size);
-        // Debug.Log(GetComponent<Collider>().bounds.min);
-        // Debug.Log(GetComponent<Collider>().bounds.max);
-
         Vector3 minCoords = GetComponent<Collider>().bounds.min;
         Vector3 maxCoords = GetComponent<Collider>().bounds.max;
 
+        Debug.Log(transform.name + " " + minCoords);
+        Debug.Log(transform.name + " " + maxCoords);
+
         SpawnNodes(minCoords, maxCoords);
+
+        // transform.Rotate(curAngle - parentAngle);
 
         Destroy(node);
     }
@@ -150,7 +168,9 @@ public class AddNodes : MonoBehaviour {
 
         node.GetComponent<Node>().SetDirection(direction);
 
-        // Debug.Log("AttachNode: " + pos);
         Instantiate(node, pos, rotation, this.transform);
+        //Node temp = Instantiate(node, this.transform, false);
+        //temp.localPosition = pos;
+        //temp.localRotation = rotation;
     }
 }
