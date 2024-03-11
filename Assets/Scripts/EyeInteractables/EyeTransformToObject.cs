@@ -24,14 +24,17 @@ public class EyeTransformObject : BaseEyeInteractable
     private Vector3 targetPos;
     private Vector3 targetScale;
 
-    private void Start()
-    {
-        UpdateTarget();
-    }
+    //private void Start()
+    //{
+    //    UpdateTarget();
+    //}
 
     private void Awake()
     {
         shiftLinker = GetComponent<ShiftLinker>();
+        UpdateTarget();
+        target.SetActive(false);
+        //target.GetComponent<Renderer>().enabled = false;
     }
 
     public override void Action(Vector3 myInput)
@@ -49,9 +52,12 @@ public class EyeTransformObject : BaseEyeInteractable
         targetPos = target.transform.position;
 
         Vector3 targetDims = target.GetComponent<Renderer>().bounds.size;
-        targetScale.x = targetDims.x / transform.GetComponent<Renderer>().bounds.size.x;
-        targetScale.y = targetDims.y / transform.GetComponent<Renderer>().bounds.size.y;
-        targetScale.z = targetDims.z / transform.GetComponent<Renderer>().bounds.size.z;
+        Vector3 startDims = transform.GetComponent<Renderer>().bounds.size;
+        targetScale.x = targetDims.x / startDims.x;
+        targetScale.y = targetDims.y / startDims.y;
+        targetScale.z = targetDims.z / startDims.z;
+
+        Debug.Log("target dims: " + targetDims + "current dims: " + transform.GetComponent<Renderer>().bounds.size);
     }
 
 
@@ -63,6 +69,7 @@ public class EyeTransformObject : BaseEyeInteractable
 
         Vector3 startPosition = transform.position;
         Vector3 startScale = transform.localScale;
+
         float elapsedTime = 0;
 
         // validate move time

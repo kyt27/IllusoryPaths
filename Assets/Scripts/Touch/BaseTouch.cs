@@ -9,6 +9,9 @@ public abstract class BaseTouch : MonoBehaviour {
 
     internal bool actionPersist = false;
 
+    // flag indicating whether this object should be directly interactable or not
+    [SerializeField] private bool buttonControlOnly = false;
+
     void Start() {
         myCamera = Camera.main;
         Initialise();
@@ -26,8 +29,10 @@ public abstract class BaseTouch : MonoBehaviour {
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
                 // Debug.Log(this.gameObject.name + myInput);
-                transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
-                Action(myInput);
+                if (!buttonControlOnly) {
+                    transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
+                    Action(myInput);
+                }
             }
         }
     }
