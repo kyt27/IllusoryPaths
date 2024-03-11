@@ -53,24 +53,33 @@ public class NewPlaceAndTrack : MonoBehaviour {
         switch(levelName) {
             case "mainMenu":
                 _instantiatedLevelSelect.SetActive(false);
-                if(levelInstantiated) Destroy(_instantiatedLevel);
+                if(levelInstantiated) {
+                    levelInstantiated = false;
+                    Destroy(_instantiatedLevel);
+                }
                 _instantiatedMainMenu.SetActive(true);
                 break;
             case "levelSelect":
                 _instantiatedMainMenu.SetActive(false);
-                if(levelInstantiated) Destroy(_instantiatedLevel);
+                if(levelInstantiated) {
+                    levelInstantiated = false;
+                    Destroy(_instantiatedLevel);
+                }
                 _instantiatedLevelSelect.SetActive(true);
                 break;
             default:
                 _instantiatedMainMenu.SetActive(false);
                 _instantiatedLevelSelect.SetActive(false);
-                _instantiatedLevel.SetActive(false);
-                if(levelInstantiated) Destroy(_instantiatedLevel);
+                if(levelInstantiated) {
+                    levelInstantiated = false;
+                    Destroy(_instantiatedLevel);
+                }
                 bool foundMatchingObject = false;
                 foreach(GameObject level in levelScenes) {
                     if(string.Compare(level.name, levelName, System.StringComparison.OrdinalIgnoreCase) == 0) {
                         foundMatchingObject = true;
                         _instantiatedLevel = Instantiate(level, _instantiatedHolder.transform);
+                        levelInstantiated = true;
                         break;
                     }
                 }
