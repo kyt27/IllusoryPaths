@@ -723,6 +723,7 @@ MonoBehaviour:
   negY: 0
   posZ: 0
   negZ: 0
+  excluded: []
 --- !u!1 &861016737506123826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,8 +1203,9 @@ MonoBehaviour:
   hintViewDist: 5
   acceptViewAngle: 20
   acceptViewDist: 3.5
-  controlled: {fileID: 3661419738513890369}
+  controlledObjects: {fileID: 0}
   testInteractable: 0
+  triggerBlinkAnimation: 1
 --- !u!1 &1596088148623821193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7b0976f2cc8eb40b854f6f977ba2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleUse: 0
+  moveTime: 0.5
+  riseDistance: 1
 --- !u!1 &1818952134886049080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,8 +1701,9 @@ MonoBehaviour:
   hintViewDist: 5
   acceptViewAngle: 20
   acceptViewDist: 3.5
-  controlled: {fileID: 1596088148623821193}
+  controlledObjects: {fileID: 0}
   testInteractable: 0
+  triggerBlinkAnimation: 1
 --- !u!1 &2160361652773541309
 GameObject:
   m_ObjectHideFlags: 0
@@ -47531,6 +47537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7b0976f2cc8eb40b854f6f977ba2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleUse: 0
+  moveTime: 0.5
+  riseDistance: 1
 --- !u!1 &5955569462102775030
 GameObject:
   m_ObjectHideFlags: 0
@@ -47896,7 +47905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6340533a34b72c04dba5fbf919d09365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlled: {fileID: 2477530467872491292}
+  controlled:
+  - {fileID: 0}
 --- !u!1 &6631108605377955893
 GameObject:
   m_ObjectHideFlags: 0
@@ -48262,6 +48272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005826cab9b71814ca7b55ae5858f064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleUse: 0
+  moveTime: 0.5
+  riseDistance: 1
 --- !u!1 &6640285228889989236
 GameObject:
   m_ObjectHideFlags: 0
@@ -49396,6 +49409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  xAxis: 0
+  yAxis: 0
+  zAxis: 0
   rotateTogether:
   - {fileID: 8799587038205749023}
   - {fileID: 861016737506123826}
@@ -49782,7 +49798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8881159469801807249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -23,14 +23,23 @@ public class EyeTouch : MonoBehaviour {
 
     [SerializeField] private bool testInteractable = false;
 
+    private BlinkManager blinkManager;
+
+    public bool triggerBlinkAnimation = true;
+
     void Start() {
         myCamera = Camera.main;
 
-        if(hintViewAngle < acceptViewAngle) throw new System.Exception("hintViewAngle must be greater or equal to acceptViewAngle");
-        if(hintViewDist < acceptViewDist) throw new System.Exception("hintViewDist must be greater or equal to acceptViewDist");
+        if(hintViewAngle < acceptViewAngle) Debug.Log("hintViewAngle must be greater or equal to acceptViewAngle");
+        if(hintViewDist < acceptViewDist) Debug.Log("hintViewDist must be greater or equal to acceptViewDist");
 
-        if(controlledObjects == null) throw new System.Exception("no object assigned to eye");
-        if(controlledObjects.GetComponent<BaseEyeInteractable>() == null) throw new System.Exception("assigned object needs to contain script extending BaseEyeInteractable");
+        if(controlledObjects == null) Debug.Log("no object assigned to eye");
+        if(controlledObjects.GetComponent<BaseEyeInteractable>() == null) Debug.Log("assigned object needs to contain script extending BaseEyeInteractable");
+
+        BlinkManager[] temp = FindObjectsOfType<BlinkManager>();
+        if(temp.Length == 0) Debug.Log("blink manager not detected");
+        else if(temp.Length > 1) Debug.Log("too many blink managers");
+        else if(temp.Length == 1) blinkManager = temp[0];
     }
 
     void Update() {
@@ -70,6 +79,7 @@ public class EyeTouch : MonoBehaviour {
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject)) {
                 transform.parent.gameObject.transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
+                if(triggerBlinkAnimation && blinkManager != null) blinkManager.Blink();
                 controlledObjects.GetComponent<BaseEyeInteractable>().Action(myInput);
             }
         }

@@ -175,7 +175,7 @@ public class HDRLightEstimation : MonoBehaviour
 
         if (args.lightEstimation.mainLightIntensityLumens.HasValue)
         {
-            mainLightIntensityLumens = args.lightEstimation.mainLightIntensityLumens;
+            mainLightIntensityLumens = args.lightEstimation.mainLightIntensityLumens * 0.5f;
             m_Light.intensity = args.lightEstimation.averageMainLightBrightness.Value * 0.5f;
         }
         else

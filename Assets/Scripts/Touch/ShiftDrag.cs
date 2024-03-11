@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
 
 public class ShiftDrag : BaseTouch {
@@ -13,12 +12,12 @@ public class ShiftDrag : BaseTouch {
     
     private bool isDragging = false;
 
-    public bool autoDetectEnds = true;
-    public float maxDist = 10f;
+    public float posDist = 4f;
 
-    [SerializeField] private Vector3 posEnd;
-    [SerializeField] private Vector3 negEnd;
+    public float negDist = 4f;
 
+    private Vector3 posEnd;
+    private Vector3 negEnd;
     
     private ShiftLinker shiftLinker;
 
@@ -32,15 +31,18 @@ public class ShiftDrag : BaseTouch {
     internal override void Initialise() {
         shiftLinker = GetComponent<ShiftLinker>();
 
-        if(autoDetectEnds) {
-            FindEnd();
-        }
-
         if(!xDirection && !yDirection && !zDirection) {
             Debug.Log("NO DIRECTION SET ON SHIFTING OBJECT: " + transform.name);
+            xDirection = true;
         }
 
-        initialPos = transform.position;
+        if(negDist < 0) {
+            negDist = -negDist;
+        }
+
+        SetEnds();
+
+        initialPos = transform.localPosition;
     }
 
     internal override void TogglePersist() {
@@ -80,11 +82,11 @@ public class ShiftDrag : BaseTouch {
         float k = Vector2.Dot(a - p, r) / Vector2.Dot(r, r);
 
         if (k < 0) {
-            transform.position = posEnd;
+            transform.localPosition = posEnd;
         } else if (k > 1) {
-            transform.position = negEnd;
+            transform.localPosition = negEnd;
         } else {
-            transform.position = posEnd - k * (posEnd - negEnd);
+            transform.localPosition = posEnd - k * (posEnd - negEnd);
         }
     }
 
@@ -97,97 +99,40 @@ public class ShiftDrag : BaseTouch {
         float z = initialPos.z - Mathf.Floor(initialPos.z);
 
         if(x < 0.1f) {
-            x = Mathf.Round(transform.position.x);
+            x = Mathf.Round(transform.localPosition.x);
         } else {
-            x = Mathf.Floor(transform.position.x) + 0.5f;
+            x = Mathf.Floor(transform.localPosition.x) + 0.5f;
         }
 
         if(y < 0.1f) {
-            y = Mathf.Round(transform.position.y);
+            y = Mathf.Round(transform.localPosition.y);
         } else {
-            y = Mathf.Floor(transform.position.y) + 0.5f;
+            y = Mathf.Floor(transform.localPosition.y) + 0.5f;
         }
 
         if(z < 0.1f) {
-            z = Mathf.Round(transform.position.z);
+            z = Mathf.Round(transform.localPosition.z);
         } else {
-            z = Mathf.Floor(transform.position.z) + 0.5f;
+            z = Mathf.Floor(transform.localPosition.z) + 0.5f;
         }
 
-        transform.position = new Vector3(x, y, z);
+        transform.localPosition = new Vector3(x, y, z);
 
         if(shiftLinker == null) return;
 
         shiftLinker.UpdateShiftLinks();
     }
 
-    void FindEnd() {
-        float ctr = 0f;
-
-        Vector3 maxCoords = GetComponent<Collider>().bounds.max;
-        Vector3 minCoords = GetComponent<Collider>().bounds.min;
-
+    void SetEnds() {
         if (xDirection) {
-            posEnd = transform.position + new Vector3(maxDist, 0, 0);
-            negEnd = transform.position + new Vector3(-maxDist, 0, 0);
-
-            ctr = Mathf.Ceil(maxCoords.x);
-            for(float x=0; x<maxDist; x++) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x + ctr, transform.position.y, transform.position.z), 0.49f);
-                if(hitColliders.Length > 0) {
-                    posEnd = transform.position + new Vector3(x, 0, 0);
-                    break;
-                }
-            }
-            ctr = Mathf.Floor(minCoords.x);
-            for(float x=0; x>-maxDist; x--) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x + ctr, transform.position.y, transform.position.z), 0.49f);
-                if(hitColliders.Length > 0) {
-                    negEnd = transform.position + new Vector3(x, 0, 0);
-                    break;
-                }
-            }
-            
+            posEnd = transform.localPosition + new Vector3(posDist, 0, 0);
+            negEnd = transform.localPosition - new Vector3(negDist, 0, 0);
         } else if (yDirection) {
-            posEnd = transform.position + new Vector3(0, maxDist, 0);
-            negEnd = transform.position + new Vector3(0, -maxDist, 0);
-            
-            ctr = Mathf.Ceil(maxCoords.y);
-            for(float y=0; y<maxDist; y++) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, y + ctr, transform.position.z), 0.49f);
-                if(hitColliders.Length > 0) {
-                    posEnd = transform.position + new Vector3(0, y, 0);
-                    return;
-                }
-            }
-            ctr = Mathf.Floor(minCoords.y);
-            for(float y=0; y>-maxDist; y--) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, y + ctr, transform.position.z), 0.49f);
-                if(hitColliders.Length > 0) {
-                    negEnd = transform.position + new Vector3(0, y, 0);
-                    return;
-                }
-            }
+            posEnd = transform.localPosition + new Vector3(0, posDist, 0);
+            negEnd = transform.localPosition - new Vector3(0, negDist, 0);
         } else if (zDirection) {
-            posEnd = transform.position + new Vector3(0, 0, maxDist);
-            negEnd = transform.position + new Vector3(0, 0, -maxDist);
-
-            ctr = Mathf.Ceil(maxCoords.z);
-            for(float z=0; z<maxDist; z++) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, z + ctr), 0.49f);
-                if(hitColliders.Length > 0) {
-                    posEnd = transform.position + new Vector3(0, 0, z);
-                    return;
-                }
-            }
-            ctr = Mathf.Floor(minCoords.z);
-            for(float z=0; z>-maxDist; z--) {
-                Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, z + ctr), 0.49f);
-                if(hitColliders.Length > 0) {
-                    negEnd = transform.position + new Vector3(0, 0, z);
-                    return;
-                }
-            }
+            posEnd = transform.localPosition + new Vector3(0, 0, posDist);
+            negEnd = transform.localPosition - new Vector3(0, 0, negDist);
         }
     }
 }
