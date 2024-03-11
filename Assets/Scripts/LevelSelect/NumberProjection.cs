@@ -5,7 +5,19 @@ using UnityEngine;
 public class NumberProjection : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool isUnlocked;
+    [SerializeField]
+    private bool unlocked;
+    public bool isUnlocked
+    {
+        get
+        {
+            return unlocked;
+        }
+        set
+        {
+            unlocked = value;
+        }
+    }
     public GameObject numberCard;
     public GameObject numberText;
     public Material textMaterialBefore;
@@ -13,11 +25,22 @@ public class NumberProjection : MonoBehaviour
 
     private Vector3[] initialVertices;
     private Vector3[] offsetVertices;
-    public float offsetRange = 0.01f;
+    public float offsetRange;
 
-    void Start()
+    private Camera myCamera;
+    private Vector3 normal;
+    private Ray ray;
+    private RaycastHit hit;
+
+    void Start() {
+        myCamera = Camera.main;
+        //InitTriangles();
+    }
+
+    public void InitTriangles()
     {
-        if (!isUnlocked) {
+        if (!unlocked) {
+            print(offsetRange);
             /* Set material of text to textMaterialBefore */
             numberText.GetComponent<Renderer>().material = textMaterialBefore;
             /* Project numberCard */
@@ -32,11 +55,10 @@ public class NumberProjection : MonoBehaviour
             // initialVertices = new Vector3[triangles.Length * 3];
             // offsetVertices = new Vector3[triangles.Length * 3];
             Vector3 splitAxis = new Vector3(1, 1, 1);
-            splitAxis.Normalize();
 
             for(int i = 0; i < triangles.Length; i += 3) {
-                float offset1 = Random.Range(0, offsetRange);
-                float offset2 = Random.Range(0, offsetRange);
+                float offset1 = Random.Range(-1 * offsetRange, offsetRange);
+                float offset2 = Random.Range(-1 * offsetRange, offsetRange);
 
                 /* Get vertices of Triangle */
                 Vector3 v1a = vertices[triangles[i]];
@@ -64,21 +86,41 @@ public class NumberProjection : MonoBehaviour
                 Vector3 v4ba = new Vector3(v4a.x, v4a.y, v4a.z);
                 Vector3 v4bb = new Vector3(v4a.x, v4a.y, v4a.z);
                 Vector3 v2bb = new Vector3(v2a.x, v2a.y, v2a.z);
+
+                float sx = Random.Range(0, 1f);
+                float sy = Random.Range(0, 1f);
+                float sz = Random.Range(0, 1f);
+
+                splitAxis.x = sx;
+                splitAxis.y = sy;
+                splitAxis.z = sz;
+
+                splitAxis.Normalize();
+
                 v1b += offset1 * splitAxis;
                 v2ba += offset1 * splitAxis;
                 v4ba += offset1 * splitAxis;
 
-                v2bb += offset1 * splitAxis;
-                v4bb += offset1 * splitAxis;
-                v3b += offset1 * splitAxis;
+                sx = Random.Range(0, 1f);
+                sy = Random.Range(0, 1f);
+                sz = Random.Range(0, 1f);
+                splitAxis.x = sx;
+                splitAxis.y = sy;
+                splitAxis.z = sz;
+
+                splitAxis.Normalize();
+
+                v2bb += offset2 * splitAxis;
+                v4bb += offset2 * splitAxis;
+                v3b += offset2 * splitAxis;
 
                 /* Append vertices to newVertices */
                 newVertices[i*2] = v1b;
                 newVertices[i*2+1] = v2ba;
                 newVertices[i*2+2] = v4ba;
                 
-                newVertices[i*2+3] = v2bb;
-                newVertices[i*2+4] = v4bb;
+                newVertices[i*2+3] = v4bb;
+                newVertices[i*2+4] = v2bb;
                 newVertices[i*2+5] = v3b;
 
                 /* Append indexes to newTriangles */
@@ -104,9 +146,40 @@ public class NumberProjection : MonoBehaviour
             }
     }
 
+    void HandleRayCast(Vector3 myInput) {
+        ray = myCamera.ScreenPointToRay(myInput);
+        if(Physics.Raycast(ray, out hit)) {
+            if(GameObject.ReferenceEquals(hit.transform.gameObject, numberCard)) {
+                /* Load Scene Here */
+                print("Load Scene");
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (isUnlocked) {
+            IsClickObject();
+        }
+    }
+    void HandleClickMouse() {
+        if (Input.GetMouseButtonDown(0)) {
+            HandleRayCast(Input.mousePosition);
+        }
+    }
+
+    void HandleTouchMobile() {
+        if (Input.touchCount>0 && Input.touches[0].phase == TouchPhase.Began) {
+            HandleRayCast(Input.touches[0].position);
+        }
+    }
+
+    void IsClickObject() {
+        # if UNITY_EDITOR || UNITY_STANDALONE
+        HandleClickMouse();
+        # elif UNITY_ANDROID || UNITY_IOS
+        HandleTouchMobile();
+        # endif
     }
 }
