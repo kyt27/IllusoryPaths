@@ -57,7 +57,10 @@ public class EyeTransformObject : BaseEyeInteractable
         targetScale.y = targetDims.y / startDims.y;
         targetScale.z = targetDims.z / startDims.z;
 
-        Debug.Log("target dims: " + targetDims + "current dims: " + transform.GetComponent<Renderer>().bounds.size);
+        // scale back to original size
+        targetScale.Scale(transform.localScale);
+
+        //Debug.Log("target dims: " + targetDims + "current dims: " + transform.GetComponent<Renderer>().bounds.size);
     }
 
 
