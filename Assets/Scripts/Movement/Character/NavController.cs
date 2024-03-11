@@ -140,15 +140,20 @@ public class NavController : MonoBehaviour {
         // validate move time
         moveTime = Mathf.Clamp(moveTime, 0.1f, 5f);
 
-        while (elapsedTime < moveTime && targetNode != null && !HasReachedNode(targetNode)) {
+        // change move time based on distance that will be moved
+        float dist = (startPosition - targetNode.transform.position).magnitude;
+        float adjustedMoveTime = moveTime * dist;
+        Debug.Log("move time: " + adjustedMoveTime + " corresponding to distance " + dist);
+
+        while (elapsedTime < adjustedMoveTime && targetNode != null && !HasReachedNode(targetNode)) {
             elapsedTime += Time.deltaTime;
-            float lerpValue = Mathf.Clamp(elapsedTime / moveTime, 0f, 1f);
+            float lerpValue = Mathf.Clamp(elapsedTime / adjustedMoveTime, 0f, 1f);
 
             Vector3 targetPos = targetNode.transform.position;
             transform.position = Vector3.Lerp(startPosition, targetPos, lerpValue);
 
-            // if over halfway, change parent to next node
-            if (lerpValue > 0.51f && transform.parent.position != targetNode.transform.position) {
+            // if over 3/4 of the way, change parent to next node
+            if (lerpValue > 0.75f && transform.parent.position != targetNode.transform.position) {
                 transform.parent = targetNode.transform;
                 currentNode = targetNode;
 
