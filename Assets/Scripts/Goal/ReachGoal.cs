@@ -24,7 +24,7 @@ public class ReachGoal : BaseNodeInteractable
     void Awake()
         {
             xr_origin = GameObject.Find("XR Origin");
-            unlockNext();
+            //unlockNext();
             materials = glowSection.GetComponent<Renderer>().materials;
             confetti = confettiParticleSystem.GetComponent<ParticleSystem>();
             confetti.Stop();
@@ -32,6 +32,7 @@ public class ReachGoal : BaseNodeInteractable
         }
     
     public override void Action(Vector3 position) {
+        GameObject.Find("EyeCanvas").GetComponent<BlinkManager>().Blink();
         /* Do Confetti */
         confetti.Play();
 
