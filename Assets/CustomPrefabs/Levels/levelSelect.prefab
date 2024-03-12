@@ -825,7 +825,7 @@ MonoBehaviour:
   textMaterialBefore: {fileID: 2100000, guid: 0a91363b76ca3424e909489aa495bbf3, type: 2}
   textMaterialAfter: {fileID: 2100000, guid: f7d23738751886d4b83bf1513498927d, type: 2}
   offsetRange: 0.01
-  level: KW Level 1
+  level: SA Level 1
 --- !u!1 &9208924687771479819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 78fac92e85b984347bc75f2300c72044,

@@ -59,7 +59,7 @@ public class ProjectableAngle : MonoBehaviour
     {
         //camera = Camera.main;
         // GameObject.Find("PlayButton").GetComponent<Renderer>().enabled = false;
-        m_camera = GameObject.Find("AR Camera").GetComponent<Transform>();
+        m_camera = Camera.main.GetComponent<Transform>(); //GameObject.Find("AR Camera").GetComponent<Transform>();
         nodes = GetComponentsInChildren<Node>();
         
         for (int i = 0; i < nodes.Length; i++) {
@@ -67,6 +67,7 @@ public class ProjectableAngle : MonoBehaviour
         }
 
         MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
+        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
 
         Vector3[] vertices = meshFilter.mesh.vertices;
         int[] triangles = meshFilter.mesh.triangles;

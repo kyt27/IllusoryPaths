@@ -26,6 +26,7 @@ public class EyeTouch : MonoBehaviour {
     private BlinkManager blinkManager;
 
     public bool triggerBlinkAnimation = true;
+    public BaseEyeInteractable eyeGlow;
 
     void Start() {
         myCamera = Camera.main;
@@ -81,6 +82,7 @@ public class EyeTouch : MonoBehaviour {
                 transform.parent.gameObject.transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
                 if(triggerBlinkAnimation && blinkManager != null) blinkManager.Blink();
                 controlledObjects.GetComponent<BaseEyeInteractable>().Action(myInput);
+                eyeGlow.Action(myInput);
             }
         }
     }

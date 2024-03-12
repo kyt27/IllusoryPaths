@@ -33,6 +33,7 @@ public class EdgeJoinEyeTouch : MonoBehaviour
     private bool debugPrinted = false;
 
     [SerializeField] private bool testInteractable = false;
+    public BaseEyeInteractable eyeGlow;
 
     void Start()
     {
@@ -96,6 +97,7 @@ public class EdgeJoinEyeTouch : MonoBehaviour
             {
                 transform.parent.gameObject.transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
                 controlledObjects.GetComponent<BaseEyeInteractable>().Action(myInput);
+                eyeGlow.Action(myInput);
             }
         }
     }
