@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
@@ -87,11 +87,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 411539382287551042}
+      addedObject: {fileID: 1020}
     - targetCorrespondingSourceObject: {fileID: 7731908752173664766, guid: 969f9996af69b1845a6872efc92e18b8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2802618293907253356}
+      addedObject: {fileID: 1021}
   m_SourcePrefab: {fileID: 100100000, guid: 969f9996af69b1845a6872efc92e18b8, type: 3}
 --- !u!1 &3687302806565729230 stripped
 GameObject:
@@ -99,7 +99,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6369968211511556656}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2802618293907253356
+--- !u!114 &1021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6369968211511556656}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &411539382287551042
+--- !u!114 &1020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,6 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eps1: 0.02
   eps2: 0
-  offsetRange: 2
+  offsetRange: 0.1
   splitAxis: {x: 0, y: 0, z: 1}
-  callback: {fileID: 2802618293907253356}
+  callback: {fileID: 1021}
