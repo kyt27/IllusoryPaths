@@ -21,6 +21,7 @@ public abstract class BaseTouch : MonoBehaviour {
         IsClickObject();
         if(actionPersist) {
             TogglePersist();
+            transform.parent.gameObject.GetComponentsInChildren<NavController>()[0].GetComponent<NavController>().SnapToCurrentNode();
         }
     }
 
