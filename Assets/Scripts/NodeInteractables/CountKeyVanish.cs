@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyVanish : BaseNodeInteractable {
-    public Node node;
+public class CountKeyVanish : BaseNodeInteractable {
+    public CountEnable obj;
 
     bool activated = false;
     public ParticleSystem particles;
@@ -14,10 +14,10 @@ public class KeyVanish : BaseNodeInteractable {
 
     public override void Action(Vector3 myInput) {
         if(!activated) {
-            if(node != null) node.EnableNode();
+            activated = true;
+            obj.increaseCount();
             particles.Play();
             gameObject.GetComponent<MeshRenderer>().enabled = false;
-            activated = true;
         }
     }
 }
