@@ -50,7 +50,7 @@ public class GlobalRotate : BaseNodeInteractable
 
     void lockAngles() {
         foreach(RotationObj obj in rotateTogether) {
-            obj.obj.transform.RotateAround(obj.rotatePoint.position, obj.axis, -1 * obj.angle * (progress - 1));
+            obj.obj.transform.RotateAround(obj.rotatePoint.position, transform.up, -1 * obj.angle * (progress - 1));
         }
     }
 
@@ -59,7 +59,7 @@ public class GlobalRotate : BaseNodeInteractable
         playerAnimation.ToggleAnimation(false);
         float inc = Time.deltaTime * rotationSpeed;
         foreach(RotationObj obj in rotateTogether) {
-            obj.obj.transform.RotateAround(obj.rotatePoint.position, obj.axis, obj.angle * inc);
+            obj.obj.transform.RotateAround(obj.rotatePoint.position, transform.up, obj.angle * inc);
         }
         progress += inc;
         

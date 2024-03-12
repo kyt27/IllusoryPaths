@@ -17,6 +17,7 @@ public class ReachGoal : BaseNodeInteractable
     float timeWait = 1;
     bool waiting = false;
     float waited = 0;
+    public int levelNum;
 
     void Awake()
         {
@@ -42,6 +43,7 @@ public class ReachGoal : BaseNodeInteractable
             waited += Time.deltaTime;
         }
         if (waited > timeWait) {
+            GameObject.Find("levelSelect").GetComponent<Levels>().unlockLevel(levelNum+1);
             xr_origin.GetComponent<NewPlaceAndTrack>().ChangeScene(nextLevel);
         }
     }

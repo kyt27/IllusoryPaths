@@ -54,6 +54,10 @@ public class Levels : MonoBehaviour
         }
     }
 
+    public void unlockLevel(int levelNum) {
+        gameData.isUnlocked[levelNum] = true;
+    }
+
     public void readFile()
     {
         // Does the file exist?
