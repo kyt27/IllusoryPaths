@@ -7,6 +7,10 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class NewPlaceAndTrack : MonoBehaviour {
     private ARTrackedImageManager _trackedImageManager;
+
+    public GameObject worldOrigin;
+
+    public Unity.XR.CoreUtils.XROrigin xrOrigin;
     
     [SerializeField] private GameObject objectHolder;
     private static GameObject _instantiatedHolder;
@@ -34,6 +38,17 @@ public class NewPlaceAndTrack : MonoBehaviour {
         _instantiatedHolder = Instantiate(objectHolder, eventArgs.added[0].transform);
         _instantiatedMainMenu = Instantiate(mainMenuScene, _instantiatedHolder.transform);
         _instantiatedLevelSelect = Instantiate(levelSelectScene, _instantiatedHolder.transform);
+
+        // XROriginExtensions.MakeContentAppearAt(xrOrigin, worldOrigin.transform, _instantiatedHolder.transform.position, _instantiatedHolder.transform.rotation);
+        //XROriginExtensions.MakeContentAppearAt(xrOrigin, _instantiatedHolder.transform, worldOrigin.transform.position);
+        //XROriginExtensions.MakeContentAppearAt(xrOrigin, _instantiatedMainMenu.transform, worldOrigin.transform.position);
+        //XROriginExtensions.MakeContentAppearAt(xrOrigin, _instantiatedLevelSelect.transform, worldOrigin.transform.position);
+
+        // for (int i = 0; i < xrOrigin.transform.childCount; i++) {
+        //     Transform child = xrOrigin.transform.GetChild(i);
+        //     child.localPosition = Vector3.zero;
+        //     child.localRotation = Quaternion.identity;
+        // }
 
         _instantiatedHolder.SetActive(true);
         _instantiatedMainMenu.SetActive(true);
@@ -79,6 +94,7 @@ public class NewPlaceAndTrack : MonoBehaviour {
                     if(string.Compare(level.name, levelName, System.StringComparison.OrdinalIgnoreCase) == 0) {
                         foundMatchingObject = true;
                         _instantiatedLevel = Instantiate(level, _instantiatedHolder.transform);
+                        //XROriginExtensions.MakeContentAppearAt(xrOrigin, _instantiatedLevel.transform, worldOrigin.transform.position);
                         levelInstantiated = true;
                         break;
                     }
