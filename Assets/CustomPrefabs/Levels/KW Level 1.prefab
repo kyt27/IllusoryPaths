@@ -1296,6 +1296,7 @@ MonoBehaviour:
   confettiParticleSystem: {fileID: 0}
   glowSection: {fileID: 4823449380467062565}
   endGlowColor: {r: 0.2679245, g: 1, b: 0.28950834, a: 0}
+  nextLevel: SA Level 1
 --- !u!1 &2302188591035223571
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,7 +7176,7 @@ Transform:
   - {fileID: 7184137670057485308}
   - {fileID: 1922388575389057234}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3482697336926110115
 MonoBehaviour:
@@ -14930,6 +14931,7 @@ MonoBehaviour:
   confettiParticleSystem: {fileID: 3445692887391468309}
   glowSection: {fileID: 4823449380467062565}
   endGlowColor: {r: 0.5919133, g: 1, b: 0.51320755, a: 0}
+  nextLevel: 
 --- !u!1 &5025278286618310672 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e1e9867d8f7e8f48abb4f15e2dac96b,

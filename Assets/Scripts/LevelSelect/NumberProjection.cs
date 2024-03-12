@@ -32,15 +32,17 @@ public class NumberProjection : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
-    void Start() {
+    public string level;
+    GameObject xr_origin;
+
+    void Awake() {
         myCamera = Camera.main;
-        //InitTriangles();
+        xr_origin = GameObject.Find("XR Origin");
     }
 
     public void InitTriangles()
     {
         if (!unlocked) {
-            print(offsetRange);
             /* Set material of text to textMaterialBefore */
             numberText.GetComponent<Renderer>().material = textMaterialBefore;
             /* Project numberCard */
@@ -151,7 +153,7 @@ public class NumberProjection : MonoBehaviour
         if(Physics.Raycast(ray, out hit)) {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, numberCard)) {
                 /* Load Scene Here */
-                print("Load Scene");
+                xr_origin.GetComponent<NewPlaceAndTrack>().ChangeScene(level);
             }
         }
     }
