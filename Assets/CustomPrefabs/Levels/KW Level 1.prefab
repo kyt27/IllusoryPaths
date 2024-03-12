@@ -1294,7 +1294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314b747621fb2a841a98f8aa9471af59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confettiParticleSystem: {fileID: 0}
+  confettiParticleSystem: {fileID: 3445692887391468309}
   glowSection: {fileID: 4823449380467062565}
   endGlowColor: {r: 0.2679245, g: 1, b: 0.28950834, a: 0}
   nextLevel: SA Level 1
@@ -2308,7 +2308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3684487061480406370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: -6}
+  m_LocalPosition: {x: -2, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2322,7 +2322,7 @@ Transform:
   - {fileID: 7184137670057485308}
   - {fileID: 1922388575389057234}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3482697336926110115
 MonoBehaviour:

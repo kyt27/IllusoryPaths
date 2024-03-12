@@ -31,7 +31,7 @@ public class RotationLinker : MonoBehaviour {
 
             // check difference between desired and current angle
             Quaternion targetAngle = Quaternion.Euler(l.activeEulerAngle);
-            float angleDiff = Quaternion.Angle(transform.rotation, targetAngle);
+            float angleDiff = Quaternion.Angle(transform.localRotation, targetAngle);
 
             // enable the linked Edges if the angle matches; otherwise disable
             if (Mathf.Abs(angleDiff) < 0.01f) {
