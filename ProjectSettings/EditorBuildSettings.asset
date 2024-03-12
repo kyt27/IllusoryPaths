@@ -23,10 +23,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Showcase 1.unity
     guid: abbccc9f72fd4ff4d810ae217781de9e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Illusory Paths.unity
     guid: 466ac3d35782d104cbbaac31d41e81d1
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TestLevel2.unity
     guid: 91eba373fd45e0c45b5af6072792ff29
   m_configObjects:
