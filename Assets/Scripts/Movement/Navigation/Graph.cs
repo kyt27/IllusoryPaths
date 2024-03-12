@@ -65,7 +65,7 @@ public class Graph : MonoBehaviour
         return FindClosestNode(allNodes.ToArray(), pos);
     }
 
-    public Node[] FindClosestNodes(Vector3 pos, float distance = 0.75f) {
+    public Node[] FindClosestNodes(Vector3 pos, float distance = 0.85f) {
         List<Node> nodes = new List<Node>();
         List<float> dist = new List<float>();
 
