@@ -21,12 +21,15 @@ public class NavController : MonoBehaviour {
     private bool isControlEnabled;
     private PlayerAnimation playerAnimation;
 
+    private Teleport teleport;
+
     void Start() {
         myCamera = Camera.main;
 
         //  initialize fields
         pathfinder = FindObjectOfType<Pathfinder>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        teleport = GetComponent<Teleport>();
 
         if (pathfinder != null)
         {
@@ -143,7 +146,7 @@ public class NavController : MonoBehaviour {
         // change move time based on distance that will be moved
         float dist = (startPosition - targetNode.transform.position).magnitude;
         float adjustedMoveTime = moveTime * dist;
-        Debug.Log("move time: " + adjustedMoveTime + " corresponding to distance " + dist);
+        // Debug.Log("move time: " + adjustedMoveTime + " corresponding to distance " + dist);
 
         while (elapsedTime < adjustedMoveTime && targetNode != null && !HasReachedNode(targetNode)) {
             elapsedTime += Time.deltaTime;
@@ -160,6 +163,13 @@ public class NavController : MonoBehaviour {
                 // invoke UnityEvent associated with next Node
                 targetNode.Interact();
                 // Debug.Log("invoked GameEvent from targetNode: " + targetNode.name);
+                Node tpNode = teleport?.findTeleportNode(currentNode);
+                if (tpNode != null) {
+                    transform.parent = tpNode.transform;
+                    currentNode = tpNode;
+                    SnapToCurrentNode();
+                    break;
+                }
             }
 
             // wait one frame

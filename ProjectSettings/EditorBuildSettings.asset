@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestLevel2.unity
     guid: 91eba373fd45e0c45b5af6072792ff29
+  - enabled: 0
+    path: Assets/Scenes/Showcase 2.unity
+    guid: 33f7d0cf9e19e824ca06124a71d44f55
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
