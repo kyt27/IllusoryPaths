@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class ReachGoal : BaseNodeInteractable
 {
@@ -17,10 +18,13 @@ public class ReachGoal : BaseNodeInteractable
     float timeWait = 1;
     bool waiting = false;
     float waited = 0;
+    public int levelNum;
+    GameData gameData;
 
     void Awake()
         {
             xr_origin = GameObject.Find("XR Origin");
+            //unlockNext();
             materials = glowSection.GetComponent<Renderer>().materials;
             confetti = confettiParticleSystem.GetComponent<ParticleSystem>();
             confetti.Stop();
@@ -28,6 +32,7 @@ public class ReachGoal : BaseNodeInteractable
         }
     
     public override void Action(Vector3 position) {
+        GameObject.Find("EyeCanvas").GetComponent<BlinkManager>().Blink();
         /* Do Confetti */
         confetti.Play();
 
@@ -37,11 +42,29 @@ public class ReachGoal : BaseNodeInteractable
 
     }
 
+    void unlockNext() {
+        Debug.Log("unlocked");
+        string saveFile = Application.persistentDataPath + "/gamedata.json";
+        if (File.Exists(saveFile))
+        {
+            // Read the entire file and save its contents.
+            string fileContents = File.ReadAllText(saveFile);
+
+            // Deserialize the JSON data 
+            //  into a pattern matching the GameData class.
+            gameData = JsonUtility.FromJson<GameData>(fileContents);
+            gameData.isUnlocked[levelNum+1] = true;
+            string jsonString = JsonUtility.ToJson(gameData);
+            File.WriteAllText(saveFile, jsonString);
+        }
+    }
+
     void Update() {
         if (waiting) {
             waited += Time.deltaTime;
         }
         if (waited > timeWait) {
+            unlockNext();
             xr_origin.GetComponent<NewPlaceAndTrack>().ChangeScene(nextLevel);
         }
     }
