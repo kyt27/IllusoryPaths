@@ -31,6 +31,27 @@ public class Levels : MonoBehaviour
     // Create a GameData field.
     GameData gameData = new GameData();
 
+    void OnEnable() {
+        saveFile = Application.persistentDataPath + "/gamedata.json";
+        if (!File.Exists(saveFile)) {
+            gameData.isUnlocked = new bool[levelButtons.Length];
+            gameData.isUnlocked[0] = true;
+            for (int i = 1; i < levelButtons.Length; i++) {
+                gameData.isUnlocked[1] = false;
+            }
+            string jsonString = JsonUtility.ToJson(gameData);
+            writeFile();
+        } else {
+            readFile();
+        }
+
+        for (int i = 0; i < levelButtons.Length; i++) {
+            levelButtons[i].GetComponent<NumberProjection>().isUnlocked = gameData.isUnlocked[i];
+            levelButtons[i].GetComponent<NumberProjection>().offsetRange = Mathf.Lerp(minOffset, maxOffset, (i+1)/levelButtons.Length);
+            levelButtons[i].GetComponent<NumberProjection>().InitTriangles();
+        }
+    }
+
     void Awake()
     {
         // Update the path once the persistent path exists.
@@ -52,6 +73,10 @@ public class Levels : MonoBehaviour
             levelButtons[i].GetComponent<NumberProjection>().offsetRange = Mathf.Lerp(minOffset, maxOffset, (i+1)/levelButtons.Length);
             levelButtons[i].GetComponent<NumberProjection>().InitTriangles();
         }
+    }
+
+    public void unlockLevel(int levelNum) {
+        gameData.isUnlocked[levelNum] = true;
     }
 
     public void readFile()

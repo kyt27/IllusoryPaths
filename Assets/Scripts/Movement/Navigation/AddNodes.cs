@@ -46,8 +46,8 @@ public class AddNodes : MonoBehaviour {
         Vector3 minCoords = GetComponent<Collider>().bounds.min;
         Vector3 maxCoords = GetComponent<Collider>().bounds.max;
 
-        Debug.Log(transform.name + " " + minCoords);
-        Debug.Log(transform.name + " " + maxCoords);
+        // Debug.Log(transform.name + " " + minCoords);
+        // Debug.Log(transform.name + " " + maxCoords);
 
         SpawnNodes(minCoords, maxCoords);
 
