@@ -60,18 +60,20 @@ public class EdgeJoinEyeTouch : MonoBehaviour
             debugPrinted = true;
         }
 
+        float avgDistance = distance / nodePairs.Count;
+
 
         if (testInteractable)
         {
             GetComponent<MeshRenderer>().material = eyeMaterials[2];
             interactable = true;
         }
-        else if (distance > hintError)
+        else if (avgDistance > hintError)
         {
             GetComponent<MeshRenderer>().material = eyeMaterials[0];
             interactable = false;
         }
-        else if (distance > acceptError)
+        else if (avgDistance > acceptError)
         {
             GetComponent<MeshRenderer>().material = eyeMaterials[1];
             interactable = false;
